@@ -71,15 +71,51 @@ const bpm_slider = document.querySelector("#bpm-slider");
 const tabs_container = document.querySelector("#tabs-container");
 const add_bar_button = document.querySelector("#add-bar-button");
 const play_tabs_button = document.querySelector("#play-tabs-button");
+const tabs_uploader = document.querySelector("#tabs-uploader");
+const tabs_downloader = document.querySelector("#tabs-downloader");
 
-// SONG INFO
+// ACTUAL CODE
 let bpm = DEFAULT_BPM;
 let note_sequence = DEFAULT_NOTE_SEQUENCE;
 
+const reader = new FileReader();
+reader.addEventListener("load", (event) => {
+  const new_song_data = JSON.parse(event.target.result);
+
+  set_bpm(new_song_data.bpm);
+  note_sequence = new_song_data.note_sequence;
+
+  draw_tabs();
+});
+
 const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-Tone.getTransport().bpm.value = bpm;
-bpm_slider.value = bpm;
-value.textContent = bpm;
+
+const set_bpm = (new_bpm) => {
+  bpm = new_bpm;
+  Tone.getTransport().bpm.value = bpm;
+  bpm_slider.value = bpm;
+  value.textContent = bpm;
+};
+
+set_bpm(DEFAULT_BPM);
+
+tabs_downloader.addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify({ bpm, note_sequence })], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `song.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+tabs_uploader.addEventListener("change", (_) => {
+  if (tabs_uploader.files.length != 1) return;
+
+  reader.readAsText(tabs_uploader.files[0]);
+});
 
 bpm_slider.addEventListener("input", (event) => {
   bpm = event.target.value;
