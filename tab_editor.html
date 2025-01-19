@@ -4,8 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tab editor</title>
+    <link rel="stylesheet" href="tab_editor.css" />
   </head>
   <body>
+    <div class="bpm-container">
+      <p>BPM: <output id="bpm-value"></output></p>
+      <input type="range" min="1" max="300" id="bpm-slider" />
+    </div>
+    <div id="tabs-container"></div>
+    <button id="add-bar-button">Add bar</button>
     <script src="./tab_editor.js"></script>
   </body>
 </html>
