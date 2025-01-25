@@ -9,7 +9,8 @@
   width: 2.9em;
   height: 2.9em;
   border-radius: 50%;
-  margin-top: 1.5em;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
 }
 
 .bar {
@@ -19,14 +20,14 @@
   width: 50%;
   margin-top: 2em;
   margin-bottom: 2em;
-  height: 380px;
+  height: 400px;
 }
 
 hr {
   z-index: -1;
   width: 100%;
   position: relative;
-  top: -22.5em;
+  top: -23.05em;
   margin-top: 3em;
 }
 
@@ -35,14 +36,14 @@ hr {
   width: 100%;
   height: 1.6em;
   position: relative;
-  top: -43em;
+  top: -43.55em;
   left: -1em;
 }
 
 .remove-bar {
   position: relative;
   right: -13em;
-  bottom: -15em;
+  bottom: -16em;
   height: 1.5em;
   width: 1.5em;
   background-color: red;
@@ -53,7 +54,7 @@ hr {
   font-size: 1.5em;
 }
 
-.remove-bar:hover {
+.remove-bar:enabled:hover {
   opacity: 0.8;
 }
 
@@ -68,7 +69,15 @@ p {
   width: fit-content;
 }
 
-#add-bar-button {
+.active {
+  background-color: red;
+  border-radius: 1em;
+}
+
+#add-bar-button,
+#play-tabs-button,
+#tabs-downloader,
+input[type="file"] {
   margin-inline: auto;
 }
 
@@ -83,8 +92,13 @@ p {
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 2em;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.remove-bar:disabled {
+  opacity: 0.5;
+  filter: grayscale(20%);
 }
