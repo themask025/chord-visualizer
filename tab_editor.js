@@ -218,13 +218,28 @@ const create_bar_element = (bar_index) => {
 
   for (let i = 0; i < 5; ++i) {
     const empty_fretting_insertor = document.createElement("button");
-    empty_fretting_insertor.className = "empty-fretting-insertor";
+    empty_fretting_insertor.className =
+      "empty-fretting-insertor" +
+      (i == 4 && (bar_index + 1) * 4 < note_sequence.length
+        ? " dont-display"
+        : "");
     empty_fretting_insertor.innerText = "V";
     empty_fretting_insertor.onclick = () => {
       note_sequence.splice(bar_index * 4 + i, 0, {});
       draw_tabs();
     };
     bar_element.appendChild(empty_fretting_insertor);
+  }
+
+  for (let i = 0; i < 4; ++i) {
+    const fretting_deletor = document.createElement("button");
+    fretting_deletor.className = "fretting-deletor";
+    fretting_deletor.innerText = "X";
+    fretting_deletor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 1);
+      draw_tabs();
+    };
+    bar_element.appendChild(fretting_deletor);
   }
 
   return bar_element;

@@ -113,3 +113,10 @@ body {
 .dont-display {
   opacity: 0;
 }
+
+.fretting-deletor {
+  position: relative;
+  top: -54em;
+  left: 1em;
+  margin-left: 3.72em;
+}
