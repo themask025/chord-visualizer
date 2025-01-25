@@ -6,25 +6,121 @@ const DEFAULT_NOTE_SEQUENCE = [
   { e: 1, B: 1, G: 2, D: 2, A: 3, E: 1 },
   { e: 0, B: 0, G: 1, D: 1, A: 2, E: 0 },
 ];
+
+// GUITAR STUFF
+const get_note_list = () => {
+  const note_names = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ];
+
+  let note_list = [];
+
+  for (let octave = 1; octave <= 9; ++octave) {
+    for (let note of note_names) {
+      note_list.push(note + octave);
+    }
+  }
+
+  return note_list;
+};
 const GUITAR_STRING_NAMES = ["e", "B", "G", "D", "A", "E"];
 const MIN_FRET = 0;
 const MAX_FRET = 22;
+const NOTE_LIST = get_note_list();
+const FRETBOARD_MAP = {
+  e: NOTE_LIST.slice(NOTE_LIST.indexOf("E4")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+  B: NOTE_LIST.slice(NOTE_LIST.indexOf("B3")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+  G: NOTE_LIST.slice(NOTE_LIST.indexOf("G3")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+  D: NOTE_LIST.slice(NOTE_LIST.indexOf("D3")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+  A: NOTE_LIST.slice(NOTE_LIST.indexOf("A2")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+  E: NOTE_LIST.slice(NOTE_LIST.indexOf("E2")).slice(
+    MIN_FRET,
+    MAX_FRET - MIN_FRET + 1
+  ),
+};
 
 // DOM ELEMENTS
 const value = document.querySelector("#bpm-value");
 const bpm_slider = document.querySelector("#bpm-slider");
 const tabs_container = document.querySelector("#tabs-container");
 const add_bar_button = document.querySelector("#add-bar-button");
+const play_tabs_button = document.querySelector("#play-tabs-button");
+const tabs_uploader = document.querySelector("#tabs-uploader");
+const tabs_downloader = document.querySelector("#tabs-downloader");
 
+// ACTUAL CODE
 let bpm = DEFAULT_BPM;
 let note_sequence = DEFAULT_NOTE_SEQUENCE;
 
-bpm_slider.value = bpm;
-value.textContent = bpm;
+const reader = new FileReader();
+reader.addEventListener("load", (event) => {
+  const new_song_data = JSON.parse(event.target.result);
+
+  set_bpm(new_song_data.bpm);
+  note_sequence = new_song_data.note_sequence;
+
+  draw_tabs();
+});
+
+const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+
+const set_bpm = (new_bpm) => {
+  bpm = new_bpm;
+  Tone.getTransport().bpm.value = bpm;
+  bpm_slider.value = bpm;
+  value.textContent = bpm;
+};
+
+set_bpm(DEFAULT_BPM);
+
+tabs_downloader.addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify({ bpm, note_sequence })], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `song.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+tabs_uploader.addEventListener("change", (_) => {
+  if (tabs_uploader.files.length != 1) return;
+
+  reader.readAsText(tabs_uploader.files[0]);
+});
 
 bpm_slider.addEventListener("input", (event) => {
-  value.textContent = event.target.value;
   bpm = event.target.value;
+  value.textContent = bpm;
+  Tone.getTransport().bpm.value = bpm;
 });
 
 add_bar_button.addEventListener("click", (_) => {
@@ -35,10 +131,16 @@ add_bar_button.addEventListener("click", (_) => {
   draw_tabs();
 });
 
+play_tabs_button.addEventListener("click", (_) => {
+  play_tabs();
+});
+
 const update_note_sequence = (new_note_sequence) => {
   note_sequence = new_note_sequence;
   draw_tabs();
 };
+
+const is_subsequence = (seq1, seq2) => seq1.every((val) => seq2.includes(val));
 
 const is_natural_number = (n) => {
   const n1 = Math.abs(n);
@@ -107,13 +209,45 @@ const create_bar_element = (bar_index) => {
     bar_element.appendChild(document.createElement("hr"));
   }
 
-  if (bar_index % 2 == 0) {
-    for (let string of GUITAR_STRING_NAMES) {
-      const string_name_element = document.createElement("p");
-      string_name_element.className = "string-name";
-      string_name_element.innerText = string;
-      bar_element.appendChild(string_name_element);
-    }
+  for (let string of GUITAR_STRING_NAMES) {
+    const string_name_element = document.createElement("p");
+    string_name_element.className =
+      "string-name" + (bar_index % 2 == 1 ? " dont-display" : "");
+    string_name_element.innerText = string;
+
+    bar_element.appendChild(string_name_element);
+  }
+
+  for (let i = 0; i < 5; ++i) {
+    const empty_fretting_insertor = document.createElement("button");
+    empty_fretting_insertor.className =
+      "empty-fretting-insertor" +
+      (i == 4 && (bar_index + 1) * 4 < note_sequence.length
+        ? " dont-display"
+        : "");
+    empty_fretting_insertor.innerText = "V";
+    empty_fretting_insertor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 0, {});
+      if (
+        is_subsequence(Object.values(note_sequence[note_sequence.length - 1]), [
+          "",
+        ])
+      )
+        note_sequence.pop();
+      draw_tabs();
+    };
+    bar_element.appendChild(empty_fretting_insertor);
+  }
+
+  for (let i = 0; i < 4; ++i) {
+    const fretting_deletor = document.createElement("button");
+    fretting_deletor.className = "fretting-deletor";
+    fretting_deletor.innerText = "X";
+    fretting_deletor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 1);
+      draw_tabs();
+    };
+    bar_element.appendChild(fretting_deletor);
   }
 
   return bar_element;
@@ -133,6 +267,67 @@ const draw_tabs = () => {
   for (let i = 0; i < bars; ++i) {
     tabs_container.appendChild(create_bar_element(i));
   }
+};
+
+const get_notes_from_fretting = (fretting) => {
+  let notes = [];
+
+  for (let string of Object.keys(fretting)) {
+    notes.push(FRETBOARD_MAP[string][fretting[string]]);
+  }
+
+  return notes;
+};
+
+const style_current_notes = (quarter_note_index) => {
+  if (quarter_note_index > 0) {
+    const last_element = find_fretting_element(quarter_note_index - 1);
+    last_element.className = "fretting-element";
+  }
+
+  const current_element = find_fretting_element(quarter_note_index);
+  current_element.className = "fretting-element active";
+};
+
+const find_fretting_element = (quarter_note_index) => {
+  const bar_index = Math.floor(quarter_note_index / 4);
+  const bar = document.getElementsByClassName("bar")[bar_index];
+
+  return bar.childNodes[(quarter_note_index % 4) + 1];
+};
+
+const play_tabs = () => {
+  let delay = Tone.now();
+
+  bpm_slider.disabled = true;
+  for (let button of document.getElementsByTagName("button")) {
+    button.disabled = true;
+  }
+
+  for (let i = 0; i < note_sequence.length; ++i) {
+    Tone.Draw.schedule(() => {
+      style_current_notes(i);
+    }, delay);
+
+    synth.triggerAttackRelease(
+      get_notes_from_fretting(note_sequence[i]),
+      "4n",
+      delay
+    );
+    delay += Tone.Time("4n");
+  }
+
+  Tone.Draw.schedule(() => {
+    if (note_sequence.length == 0) return;
+
+    const fretting_element = find_fretting_element(note_sequence.length - 1);
+    fretting_element.className = "fretting-element";
+
+    for (let button of document.getElementsByTagName("button")) {
+      button.disabled = false;
+      bpm_slider.disabled = false;
+    }
+  }, delay);
 };
 
 draw_tabs();
