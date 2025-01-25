@@ -140,6 +140,8 @@ const update_note_sequence = (new_note_sequence) => {
   draw_tabs();
 };
 
+const is_subsequence = (seq1, seq2) => seq1.every((val) => seq2.includes(val));
+
 const is_natural_number = (n) => {
   const n1 = Math.abs(n);
   const n2 = parseInt(n, 10);
@@ -207,13 +209,45 @@ const create_bar_element = (bar_index) => {
     bar_element.appendChild(document.createElement("hr"));
   }
 
-  if (bar_index % 2 == 0) {
-    for (let string of GUITAR_STRING_NAMES) {
-      const string_name_element = document.createElement("p");
-      string_name_element.className = "string-name";
-      string_name_element.innerText = string;
-      bar_element.appendChild(string_name_element);
-    }
+  for (let string of GUITAR_STRING_NAMES) {
+    const string_name_element = document.createElement("p");
+    string_name_element.className =
+      "string-name" + (bar_index % 2 == 1 ? " dont-display" : "");
+    string_name_element.innerText = string;
+
+    bar_element.appendChild(string_name_element);
+  }
+
+  for (let i = 0; i < 5; ++i) {
+    const empty_fretting_insertor = document.createElement("button");
+    empty_fretting_insertor.className =
+      "empty-fretting-insertor" +
+      (i == 4 && (bar_index + 1) * 4 < note_sequence.length
+        ? " dont-display"
+        : "");
+    empty_fretting_insertor.innerText = "V";
+    empty_fretting_insertor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 0, {});
+      if (
+        is_subsequence(Object.values(note_sequence[note_sequence.length - 1]), [
+          "",
+        ])
+      )
+        note_sequence.pop();
+      draw_tabs();
+    };
+    bar_element.appendChild(empty_fretting_insertor);
+  }
+
+  for (let i = 0; i < 4; ++i) {
+    const fretting_deletor = document.createElement("button");
+    fretting_deletor.className = "fretting-deletor";
+    fretting_deletor.innerText = "X";
+    fretting_deletor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 1);
+      draw_tabs();
+    };
+    bar_element.appendChild(fretting_deletor);
   }
 
   return bar_element;

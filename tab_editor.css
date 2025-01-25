@@ -102,3 +102,21 @@ body {
   opacity: 0.5;
   filter: grayscale(20%);
 }
+
+.empty-fretting-insertor {
+  position: relative;
+  top: -80em;
+  left: -1.5em;
+  margin-left: 3.72em;
+}
+
+.dont-display {
+  opacity: 0;
+}
+
+.fretting-deletor {
+  position: relative;
+  top: -54em;
+  left: 1em;
+  margin-left: 3.72em;
+}
