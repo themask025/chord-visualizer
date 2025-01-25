@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Login Form</title>
-  <link rel="stylesheet" href="login.css" />
-  <link rel="stylesheet" href="login/login.css" />
+    <?php
+        require_once 'constants.php';
+        echo '<link rel="stylesheet"' . ' href="'. BASE_PATH . 'views/login/login.css" />';
+    ?>
+    <!--<link rel="stylesheet" href="/chord-visualizer/views/login/login.css" />-->
+    <!-- When path begin / is absolute path from the root folder-->
+    <!-- otherwise it is relative path from the current folder -->
 </head>
 <body>
 <h1 class="title">Login</h1>
-<form class="login-form" action="/submit_login" method="post">
+<form class="login-form" method="post">
   <label for="email">Email:</label>
   <input class="form-input" type="email" id="email" name="email" required>
 

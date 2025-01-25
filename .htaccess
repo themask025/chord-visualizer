@@ -1,5 +1,5 @@
 # Turn rewriting on
-Options +FollowSymLinks
+#Options +FollowSymLinks
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
