@@ -207,13 +207,24 @@ const create_bar_element = (bar_index) => {
     bar_element.appendChild(document.createElement("hr"));
   }
 
-  if (bar_index % 2 == 0) {
-    for (let string of GUITAR_STRING_NAMES) {
-      const string_name_element = document.createElement("p");
-      string_name_element.className = "string-name";
-      string_name_element.innerText = string;
-      bar_element.appendChild(string_name_element);
-    }
+  for (let string of GUITAR_STRING_NAMES) {
+    const string_name_element = document.createElement("p");
+    string_name_element.className =
+      "string-name" + (bar_index % 2 == 1 ? " dont-display" : "");
+    string_name_element.innerText = string;
+
+    bar_element.appendChild(string_name_element);
+  }
+
+  for (let i = 0; i < 5; ++i) {
+    const empty_fretting_insertor = document.createElement("button");
+    empty_fretting_insertor.className = "empty-fretting-insertor";
+    empty_fretting_insertor.innerText = "V";
+    empty_fretting_insertor.onclick = () => {
+      note_sequence.splice(bar_index * 4 + i, 0, {});
+      draw_tabs();
+    };
+    bar_element.appendChild(empty_fretting_insertor);
   }
 
   return bar_element;
