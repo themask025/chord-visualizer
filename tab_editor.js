@@ -140,6 +140,8 @@ const update_note_sequence = (new_note_sequence) => {
   draw_tabs();
 };
 
+const is_subsequence = (seq1, seq2) => seq1.every((val) => seq2.includes(val));
+
 const is_natural_number = (n) => {
   const n1 = Math.abs(n);
   const n2 = parseInt(n, 10);
@@ -226,6 +228,12 @@ const create_bar_element = (bar_index) => {
     empty_fretting_insertor.innerText = "V";
     empty_fretting_insertor.onclick = () => {
       note_sequence.splice(bar_index * 4 + i, 0, {});
+      if (
+        is_subsequence(Object.values(note_sequence[note_sequence.length - 1]), [
+          "",
+        ])
+      )
+        note_sequence.pop();
       draw_tabs();
     };
     bar_element.appendChild(empty_fretting_insertor);
