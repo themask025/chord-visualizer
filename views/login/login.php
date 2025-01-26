@@ -7,9 +7,6 @@
         require_once 'constants.php';
         echo '<link rel="stylesheet"' . ' href="'. BASE_PATH . 'views/login/login.css" />';
     ?>
-    <!--<link rel="stylesheet" href="/chord-visualizer/views/login/login.css" />-->
-    <!-- When path begin / is absolute path from the root folder-->
-    <!-- otherwise it is relative path from the current folder -->
 </head>
 <body>
 <h1 class="title">Login</h1>
