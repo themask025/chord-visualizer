@@ -114,6 +114,10 @@ body {
   opacity: 0;
 }
 
+.display-none {
+  display: none !important;
+}
+
 .fretting-deletor {
   position: relative;
   top: -54em;
