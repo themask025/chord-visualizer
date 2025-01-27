@@ -41,27 +41,27 @@ const NOTE_LIST = get_note_list();
 const FRETBOARD_MAP = {
   e: NOTE_LIST.slice(NOTE_LIST.indexOf("E4")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
   B: NOTE_LIST.slice(NOTE_LIST.indexOf("B3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
   G: NOTE_LIST.slice(NOTE_LIST.indexOf("G3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
   D: NOTE_LIST.slice(NOTE_LIST.indexOf("D3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
   A: NOTE_LIST.slice(NOTE_LIST.indexOf("A2")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
   E: NOTE_LIST.slice(NOTE_LIST.indexOf("E2")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1
+    MAX_FRET - MIN_FRET + 1,
   ),
 };
 
@@ -73,6 +73,13 @@ const add_bar_button = document.querySelector("#add-bar-button");
 const play_tabs_button = document.querySelector("#play-tabs-button");
 const tabs_uploader = document.querySelector("#tabs-uploader");
 const tabs_downloader = document.querySelector("#tabs-downloader");
+const json_data_element = document.getElementById("json-data");
+const song_id_form_element = document.getElementById("song-id");
+const user_id_form_element = document.getElementById("user-id");
+const version_name_element = document.getElementById("version-name");
+const song_title_element = document.getElementById("song-title");
+const performer_element = document.getElementById("performer");
+const content_element = document.getElementById("content");
 
 // ACTUAL CODE
 let bpm = DEFAULT_BPM;
@@ -95,6 +102,7 @@ const set_bpm = (new_bpm) => {
   Tone.getTransport().bpm.value = bpm;
   bpm_slider.value = bpm;
   value.textContent = bpm;
+  content.value = JSON.stringify({ bpm, note_sequence });
 };
 
 set_bpm(DEFAULT_BPM);
@@ -267,6 +275,8 @@ const draw_tabs = () => {
   for (let i = 0; i < bars; ++i) {
     tabs_container.appendChild(create_bar_element(i));
   }
+
+  content_element.value = JSON.stringify({ bpm, note_sequence });
 };
 
 const get_notes_from_fretting = (fretting) => {
@@ -312,7 +322,7 @@ const play_tabs = () => {
     synth.triggerAttackRelease(
       get_notes_from_fretting(note_sequence[i]),
       "4n",
-      delay
+      delay,
     );
     delay += Tone.Time("4n");
   }
@@ -329,5 +339,16 @@ const play_tabs = () => {
     }
   }, delay);
 };
+
+if (json_data_element != null) {
+  const json_data = JSON.parse(json_data_element.textContent);
+  console.log(json_data);
+
+  song_id_form_element.value = json_data.version.song_id;
+  version_name_element.value = json_data.version.version_name;
+  set_bpm(json_data.version.content.bpm);
+  note_sequence = json_data.version.content.note_sequence;
+  json_data_element.remove();
+}
 
 draw_tabs();
