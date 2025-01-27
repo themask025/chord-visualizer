@@ -49,10 +49,16 @@ class Database
         return $this->stmt->execute();
     }
 
-    public function result()
+    public function fetchSingleResult()
     {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function fetchAllResults()
+    {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function bind($param, $value)
