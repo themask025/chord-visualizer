@@ -5,7 +5,7 @@ require_once 'controller.php';
 class LoginController extends Controller
 {
 
-    public function login()
+    public function index()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
