@@ -4,7 +4,7 @@ require_once 'controller.php';
 
 class RegisterController extends Controller
 {
-    function register()
+    function index()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {

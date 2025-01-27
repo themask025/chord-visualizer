@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Registration Form</title>
-  <link rel="stylesheet" href="register.css" />
+    <?php
+    require_once 'constants.php';
+    echo '<link rel="stylesheet"' . ' href="'. BASE_PATH . 'views/register/register.css" />';
+    ?>
 </head>
 <body>
 <h1 class="title">Register</h1>
