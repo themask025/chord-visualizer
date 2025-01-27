@@ -8,9 +8,9 @@ class Controller
         return new $model;
     }
 
-    protected function renderView($viewPath, $data = [])
+    protected function renderView($view_path, $data = [])
     {
         extract($data);
-        require_once "views/$viewPath/$viewPath.php"; 
+        require_once "views/$view_path/$view_path.php"; 
     }
 }
