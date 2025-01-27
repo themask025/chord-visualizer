@@ -44,8 +44,7 @@ class VersionController extends Controller
                 $version = $this->default_version;
             }
             $data = ["version" => $version];
-            require_once __DIR__ . '/../views/tab_editor/tab_editor.php';
-           // $this->renderView('tab_editor', $data);
+            $this->renderView('tab_editor', $data);
         }
         else if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
