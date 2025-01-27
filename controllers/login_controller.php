@@ -1,5 +1,7 @@
 <?php
 
+require_once 'controller.php';
+
 class LoginController extends Controller
 {
 
@@ -10,7 +12,7 @@ class LoginController extends Controller
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            $model = $this->loadModel("LoginModel");
+            $model = $this->loadModel("Login");
             $user = $model->getUser($username);
 
             if($user != false)

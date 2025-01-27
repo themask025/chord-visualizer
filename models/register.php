@@ -1,8 +1,8 @@
 <?php
 
-require_once "Database.php";
+require_once "database.php";
 
-class RegisterModel
+class Register
 {
     private $db;
 

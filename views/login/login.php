@@ -21,7 +21,6 @@
 
     <button class="submit-button" type="submit">Register</button>
   </form>
-  <a href="controllers/RegisterController">or Sign up</a>
 </body>
 
 </html>

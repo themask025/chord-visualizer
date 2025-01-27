@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Controller.php';
+require_once 'controller.php';
 
 class RegisterController extends Controller
 {
@@ -12,7 +12,7 @@ class RegisterController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $model = $this->loadModel("RegisterModel");
+            $model = $this->loadModel("Register");
             $status = $model->addUser($username, $email, $password);
             if($status == true)
             {
