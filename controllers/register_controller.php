@@ -25,9 +25,9 @@ class RegisterController extends Controller
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $password_repeat = $_POST['password_repeat'];
+            $password_confirmation = $_POST['password_confirmation'];
 
-            if($this->is_valid_input($username, $email, $password, $password_repeat) == true)
+            if($this->is_valid_input($username, $email, $password, $password_confirmation) == true)
             {
                 $model = $this->loadModel("register");
                 $status = $model->addUser($username, $email, $password);
@@ -54,13 +54,25 @@ class RegisterController extends Controller
         $this->renderView('register');
     }
 
-    private function is_valid_input($username, $email, $password, $password_repeat)
+    private function is_valid_input($username, $email, $password, $password_confirmation)
     {
-        if($password != $password_repeat)
+        if($password != $password_confirmation)
         {
             $this->error = "Passwords do not match!";
             return false;
         }
+
+        if (strlen($username) <= 3) {
+            $this->error = "Username must be at least 3 characters long.";
+            return false;
+        }
+
+        if(strlen($password) < 8)
+        {
+            $this->error = "Password must be at least 8 characters long.";
+            return false;
+        }
+
         return true;
     }
 }

@@ -27,7 +27,7 @@
   <input class="form-input" type="password" id="password" name="password" required><br><br>
   
   <label for="password">Repeat password:</label><br>
-  <input class="form-input" type="password" id="password_repeat" name="password_repeat" required><br><br>
+  <input class="form-input" type="password" id="password_confirmation" name="password_confirmation" required><br><br>
 
   <button class="submit-button" type="submit">Register</button>
 </form>
