@@ -16,7 +16,7 @@ class RegisterController extends Controller
         session_start();
         if (isset($_SESSION["user_id"]))
         {
-            require_once "views/home/index.php";
+            header("Location: views/home/index.php");
             exit;
         }
 
@@ -41,7 +41,7 @@ class RegisterController extends Controller
                     session_regenerate_id();
                     $_SESSION["user_id"] = $user["id"];
     
-                    require_once "views/home/index.php";
+                    header("Location: views/home/index.php");
                     exit;
                 }
                 else
