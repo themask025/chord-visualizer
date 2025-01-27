@@ -17,6 +17,6 @@ class Login
         
         $this->db->bind(":username", $username);
 
-        return $this->db->result();
+        return $this->db->fetchSingleResult();
     }
 }
