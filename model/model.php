@@ -1,14 +1,13 @@
 <?php
 
-namespace model;
-
+require_once 'database.php';
 class Model
 {
     protected $db;
 
-    public function __construct(PDO $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = new Database() ;
     }
 
 }

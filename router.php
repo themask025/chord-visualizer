@@ -1,5 +1,6 @@
 <?php
-use controllers\LoginController;
+
+
 class Router
 {
     public function __construct()
@@ -7,9 +8,9 @@ class Router
 
     private function use_default_controller()
     {
-        require_once __DIR__ . '/controllers/login_Controller.php';
+        require_once __DIR__ . '/controllers/login_controller.php';
         $controller = new LoginController();
-        $controller->index();
+        $controller->login();
     }
 
     public function choose_route($route)
@@ -25,12 +26,26 @@ class Router
                 case "register":
                     include "./views/register/register.php";
                     break;
-                case "tab_editor":
-                    include "./views/tab_editor/tab_editor.html";
-
-                    break;
                 default:
-                    $this->use_default_controller();
+                    $controller_name = ucfirst($route_arr[2]) . 'Controller';
+                    $controller_file = __DIR__ . '/controllers/' . strtolower($route_arr[2]) . '_controller.php';
+
+                    if (file_exists($controller_file)) {
+                        require_once $controller_file;
+                        if (class_exists($controller_name)) {
+                            $controller = new $controller_name();
+                            $action = $route_arr[3] ?? 'index';
+                            if (method_exists($controller, $action)) {
+                                $controller->{$action}();
+                            } else {
+                                $this->use_default_controller();
+                            }
+                        } else {
+                            $this->use_default_controller();
+                        }
+                    } else {
+                        $this->use_default_controller();
+                    }
                     break;
             }
         }

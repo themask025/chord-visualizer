@@ -1,40 +1,43 @@
 <?php
 
-namespace model;
-
 class Song extends Model
 {
-    public function __construct($db)
+    public function getSongById($songId)
     {
-        parent::__construct($db);
+        $this->db->query("SELECT * FROM songs WHERE song_id = :song_id");
+        $this->db->bind(":song_id", $songId);
+        return $this->db->fetchSingleResult();
     }
-    public function create_song($song_name, $performer)
+    public function getSongByNamePerformer($song_name, $performer)
     {
-        $sql = "INSERT INTO songs (song_name, performer ) VALUES (:song_name, :performer)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":song_name", $song_name);
-        $stmt->bindValue(":performer", $performer);
-        $stmt->execute();
+        $this->db->query("SELECT * FROM songs WHERE title = :song_name AND performer = :performer");
+        $this->db->bind(":song_name", $song_name);
+        $this->db->bind(":performer", $performer);
+        return $this->db->fetchSingleResult();
+    }
+    public function createSong($song_name, $performer)
+    {
+        $this->db->query("INSERT INTO songs (title, performer) VALUES (:song_name, :performer)");
+        $this->db->bind(":song_name", $song_name);
+        $this->db->bind(":performer", $performer);
+        $this->db->execute();
     }
 
-    public  function filter_songs_by_name($song_name, $limit)
+    public  function filterSongsByName($song_name, $limit)
     {
-        $sql = "SELECT * FROM songs WHERE song_name LIKE :song_name LIMIT :limit";
-        $stmt = $this->db->prepare($sql);
+        $this->db->query("SELECT * FROM songs WHERE title LIKE :song_name LIMIT :limit");
         $searchPattern = "%" . $song_name . "%";
-        $stmt->bindValue(":song_name", $searchPattern);
-        $stmt->bindValue(":limit", $limit);
-        $stmt->execute();
-        return $stmt->fetch();
+        $this->db->bind(":song_name", $searchPattern);
+        $this->db->bind(":limit", $limit);
+        return $this->db->fetchAllResults();
     }
     
-    public function get_version_count_of_song($song_id)
+    public function getVersionCountOfSong($song_id)
     {
-        $sql = "SELECT COUNT(*) FROM versions WHERE song_id = :song_id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":song_id", $song_id);
-        $stmt->execute();
-        return $stmt->fetch();
+        $this->db->query("SELECT COUNT(*) FROM versions WHERE song_id = :song_id");
+        $this->db->bind(":song_id", $song_id);
+        $this->db->execute();
+        return $this->db->fetchSingleResult();
         
     }
 
