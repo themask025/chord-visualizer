@@ -17,11 +17,10 @@ class Router
     {
         $route = trim($route, '/');
         $route_arr = explode("/", $route);
-        # route is separated to 'chord-visualizer' <controller_name> ....
+        # route is separated to 'chord-visualizer' <controller_name> <controller_action> ....
         # this is a validation of the route length
         if (count($route_arr) < 2) {
 
-            echo count($route_arr);
             $this->use_default_controller();
         }
         else {

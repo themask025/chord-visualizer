@@ -1,6 +1,6 @@
 <?php
 const BASE_PATH = "/chord-visualizer/";
-/* define("CONNECTION_STRING","localhost");*/
+   /* define("CONNECTION_STRING","localhost");*/
 
 const DB_HOST = "localhost";
 const DB_USER = "root";

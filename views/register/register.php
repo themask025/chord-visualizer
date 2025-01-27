@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1 class="title">Register</h1>
-<form class="register-form" action="/submit_registration" method="post">
+<form class="register-form" method="post">
   <label for="username">Username:</label><br>
   <input class="form-input" type="text" id="username" name="username" required><br><br>
 
@@ -19,6 +19,9 @@
 
   <label for="password">Password:</label><br>
   <input class="form-input" type="password" id="password" name="password" required><br><br>
+  
+  <label for="password">Repeat password:</label><br>
+  <input class="form-input" type="password" id="password2" name="password2" required><br><br>
 
   <button class="submit-button" type="submit">Register</button>
 </form>
