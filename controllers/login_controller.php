@@ -12,7 +12,7 @@ class LoginController extends Controller
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            $model = $this->loadModel("Login");
+            $model = $this->loadModel("login");
             $user = $model->getUser($username);
 
             if($user != false)

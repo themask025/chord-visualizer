@@ -12,7 +12,7 @@ class RegisterController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $model = $this->loadModel("Register");
+            $model = $this->loadModel("register");
             $status = $model->addUser($username, $email, $password);
             if($status == true)
             {
