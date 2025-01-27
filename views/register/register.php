@@ -10,6 +10,12 @@
 </head>
 <body>
 <h1 class="title">Register</h1>
+<?php
+    if($this->error != null)
+    {
+      echo "<h2 class=\"title\">" . $this->error . "</h2>";
+    }
+  ?>
 <form class="register-form" method="post">
   <label for="username">Username:</label><br>
   <input class="form-input" type="text" id="username" name="username" required><br><br>
@@ -21,7 +27,7 @@
   <input class="form-input" type="password" id="password" name="password" required><br><br>
   
   <label for="password">Repeat password:</label><br>
-  <input class="form-input" type="password" id="password2" name="password2" required><br><br>
+  <input class="form-input" type="password" id="password_repeat" name="password_repeat" required><br><br>
 
   <button class="submit-button" type="submit">Register</button>
 </form>
