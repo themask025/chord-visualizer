@@ -6,12 +6,14 @@ class VersionController extends Controller
     private $version_model;
     private $song_model;
     private $default_version;
+    private $comments_model;
 
 
     public function __construct()
     {
         $this->version_model = $this->loadModel('Version');
         $this->song_model = $this->loadModel('Song');
+        $this->comments_model = $this->loadModel('Comments');
         $this->default_version =
             ["content" => json_decode(file_get_contents(__DIR__ . "/../example-songs/fly_me_to_the_moon.json"), true),
              "version_name" => "Default",
@@ -32,6 +34,7 @@ class VersionController extends Controller
             $this->index();
         }
     }
+
     public function tabEditor()
     {
         if($_SERVER['REQUEST_METHOD'] === 'GET')
@@ -64,7 +67,21 @@ class VersionController extends Controller
         }
 
     }
+    public function searchSongVersions()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'GET')
+        {
+            $song_id = $_GET["song_id"];
+            $versions = $this->version_model->getVersionsNameAuthorBySongId($song_id);
+            foreach ($versions as $key => $version)
+            {
+                $versions[$key]["comments_count"] = count($this->comments_model->getComments($version["id"]));
+            }
+            $data  = ["versions" => $versions];
+            $this->renderView('song_versions', $data);
+        }
 
+    }
     public function index()
     {
         require_once __DIR__ . '/../views/tab_editor/tab_editor.php';
