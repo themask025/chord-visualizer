@@ -34,8 +34,19 @@ class VersionController extends Controller
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
+      if (!isset($_SESSION["user_id"])) {
+        header("Location: /chord-visualizer/");
+        exit;
+      }
+
       if (isset($_POST["song_name"]) && isset($_POST["song_author"])) {
-        $data = ["page_type" => "song_creation", "can_edit" => true, "song_name" => $_POST["song_name"],"song_author" => $_POST["song_author"]];
+        $data = [
+          "page_type" => "song_creation",
+          "can_edit" => true,
+          "song_name" => $_POST["song_name"],
+          "song_author" => $_POST["song_author"],
+          "version_creator" => $_SESSION["user_id"]
+        ];
         $this->renderView('tab_editor', $data);
       }
     }
