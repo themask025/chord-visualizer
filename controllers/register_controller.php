@@ -26,11 +26,10 @@ class RegisterController extends Controller
             $password_confirmation = $_POST['password_confirmation'];
 
             if ($this->is_valid_input($username, $email, $password, $password_confirmation) == true) {
-                $model = $this->loadModel("register");
+                $model = $this->loadModel("user");
                 $status = $model->addUser($username, $email, $password);
                 if ($status == true) {
-                    $model = $this->loadModel("login");
-                    $user = $model->getUser($username);
+                    $user = $model->getUserFromUsername($username);
 
                     session_start();
                     session_regenerate_id();
@@ -86,7 +85,7 @@ class RegisterController extends Controller
             return false;
         }
 
-        $model = $this->loadModel("register");
+        $model = $this->loadModel("user");
 
         if($model->checkUsernameExists($username) == true)
         {

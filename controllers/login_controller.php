@@ -22,8 +22,8 @@ class LoginController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'];
 
-            $model = $this->loadModel("login");
-            $user = $model->getUser($username);
+            $model = $this->loadModel("user");
+            $user = $model->getUserFromUsername($username);
 
             if ($user != false) {
                 if ($_POST["password"] == $user["password"]) {
