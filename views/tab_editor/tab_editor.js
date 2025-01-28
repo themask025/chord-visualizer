@@ -277,7 +277,7 @@ const draw_tabs = () => {
 };
 
 const get_notes_from_fretting = (fretting) => {
-  let notes = [];
+  let notes = [undefined];
 
   for (let string of Object.keys(fretting)) {
     notes.push(FRETBOARD_MAP[string][fretting[string]]);
@@ -329,6 +329,11 @@ const play_tabs = () => {
   Tone.Draw.schedule(() => {
     const fretting_element = find_fretting_element(note_sequence.length - 1);
     fretting_element.className = "fretting-element";
+
+    bpm_slider.disabled = false;
+    for (let button of document.getElementsByTagName("button")) {
+      button.disabled = false;
+    }
   }, delay);
 };
 
@@ -342,8 +347,8 @@ if (json_data_element != null) {
   song_author_form_element.value = json_data.song_author;
   version_id_form_element.value = json_data.version_id;
   if (json_data.version_data) {
-  set_bpm(json_data.version_data.bpm);
-  note_sequence = json_data.version_data.note_sequence;
+    set_bpm(json_data.version_data.bpm);
+    note_sequence = json_data.version_data.note_sequence;
   } else {
     set_bpm(60);
     note_sequence = [];
