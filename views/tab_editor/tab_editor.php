@@ -35,7 +35,7 @@ $version_creator = $data["version_creator"];
 
 echo "<h2>\"{$song_name}\" by \"{$song_author}\"</h2>";
 if ($data["page_type"] === "song_view") {
-    echo "<h3>Tabs created by user <em>{$version_creator}</em></h3>";
+    echo "<h3>Tabs created by <em>{$version_creator}</em></h3>";
 }
 ?>
     <div class="bpm-container">
