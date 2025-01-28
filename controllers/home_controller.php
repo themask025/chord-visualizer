@@ -6,7 +6,7 @@ class HomeController extends Controller {
     public function __construct() {}
 
     public function index() {
-        header("Location: views/home/index.php");
+        require_once("views/home/index.php");
     }
 }
 
