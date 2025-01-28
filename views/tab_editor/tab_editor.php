@@ -28,6 +28,15 @@ if ($data["page_type"] === "song_creation") {
 if ($data["can_edit"] === false) {
   $class_name = "display-none";
 }
+
+$song_name = $data["song_name"];
+$song_author = $data["song_author"];
+$version_creator = $data["version_creator"];
+
+echo "<h2>\"{$song_name}\" by \"{$song_author}\"</h2>";
+if ($data["page_type"] === "song_view") {
+    echo "<h3>Tabs created by user <em>{$version_creator}</em></h3>";
+}
 ?>
     <div class="bpm-container">
       <p>BPM: <output id="bpm-value"></output></p>
@@ -40,7 +49,9 @@ echo "<input class=\"{$class_name}\" type=\"range\" min=\"1\" max=\"300\" id=\"b
 echo "<button class=\"{$class_name}\" id=\"add-bar-button\">Add bar</button>";
 ?>
     <button id="play-tabs-button">Play tabs</button>
-    <input type="file" accept=".json" id="tabs-uploader" />
+<?php
+    echo "<input class=\"{$class_name}\"type=\"file\" accept=\".json\" id=\"tabs-uploader\" />";
+?>
     <button id="tabs-downloader">Download current tab data</button>
 <?php
 echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
