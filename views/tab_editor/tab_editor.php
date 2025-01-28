@@ -40,7 +40,9 @@ echo "<input class=\"{$class_name}\" type=\"range\" min=\"1\" max=\"300\" id=\"b
 echo "<button class=\"{$class_name}\" id=\"add-bar-button\">Add bar</button>";
 ?>
     <button id="play-tabs-button">Play tabs</button>
-    <input type="file" accept=".json" id="tabs-uploader" />
+<?php
+    echo "<input class=\"{$class_name}\"type=\"file\" accept=\".json\" id=\"tabs-uploader\" />";
+?>
     <button id="tabs-downloader">Download current tab data</button>
 <?php
 echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
