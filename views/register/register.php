@@ -30,6 +30,8 @@
   <input class="form-input" type="password" id="password_confirmation" name="password_confirmation" required><br><br>
 
   <button class="submit-button" type="submit">Register</button>
+  <a href="<?php echo BASE_PATH; ?>login">Or Log in</a>
+
 </form>
 </body>
 </html>

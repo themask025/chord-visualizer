@@ -22,7 +22,7 @@ class Version extends Model
     }
     public function getVersionsNameAuthorBySongId($song_id,$limit = '10',$offset = '0')
     {
-        $this->db->query("SELECT versions.id, versions.name, users.username FROM versions" .
+        $this->db->query("SELECT versions.id, versions.name, users.username as 'version_author' FROM versions" .
                             " JOIN users ON versions.creator_id = users.id WHERE song_id = :song_id LIMIT "
                             . intval($limit)." OFFSET ".intval($offset));
         $this->db->bind(":song_id", $song_id);

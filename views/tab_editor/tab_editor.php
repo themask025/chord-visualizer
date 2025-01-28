@@ -10,30 +10,44 @@
   <body>
 <?php
 session_start();
-if (isset($_SESSION["user_id"])) {
-  echo "COOL";
-}
 if (isset($data)) {
   echo '<p id="json-data">'.json_encode($data).'</p>';
+}
+$action = "/chord-visualizer/version/updateTab";
+$submit_name = "Update tab";
+$class_name = "";
+if ($data["page_type"] === "song_creation") {
+  $action = "/chord-visualizer/version/createTab";
+  $submit_name = "Create tab";
+}
+
+if ($data["can_edit"] === false) {
+  $class_name = "display-none";
 }
 ?>
     <div class="bpm-container">
       <p>BPM: <output id="bpm-value"></output></p>
-      <input type="range" min="1" max="300" id="bpm-slider" />
+<?php
+    echo "<input class=\"{$class_name}\" type=\"range\" min=\"1\" max=\"300\" id=\"bpm-slider\" />";
+?>
     </div>
     <div id="tabs-container"></div>
-    <button id="add-bar-button">Add bar</button>
+<?php
+    echo "<button class=\"{$class_name}\" id=\"add-bar-button\">Add bar</button>";
+?>
     <button id="play-tabs-button">Play tabs</button>
     <input type="file" accept=".json" id="tabs-uploader" />
     <button id="tabs-downloader">Download current tab data</button>
-    <form id="tab-form" method="POST">
-      <input class="display-none" type="text" id="song-id" name="song_id" />
-      <input class="display-none" type="text" id="user-id" name="user_id" />
-      <input class="display-none" type="text" id="version-name" name="version_name" />
-      <input class="display-none" type="text" id="song-title" name="song_title" />
-      <input class="display-none" type="text" id="performer" name="performer" />
-      <input class="display-none" type="text" id="content" name="content" />
-      <input type="submit" />
+<?php
+  echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
+?>
+      <input class="display-none" type="text" id="version-id" name="version_id" />
+      <input class="display-none" type="text" id="version-data" name="version_data" />
+      <input class="display-none" type="text" id="song-name" name="song_name" />
+      <input class="display-none" type="text" id="song-author" name="song_author" />
+<?php
+echo "<input type=\"submit\" value=\"{$submit_name}\"/>"
+?>
     </form>
     <script src="/chord-visualizer/views/tab_editor/tab_editor.js"></script>
   </body>

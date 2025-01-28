@@ -1,5 +1,6 @@
 <?php
 
+require_once 'model.php';
 class Song extends Model
 {
     public function getSongById($songId)
@@ -23,12 +24,11 @@ class Song extends Model
         $this->db->execute();
     }
 
-    public  function filterSongsByName($song_name, $limit)
+    public  function filterSongsByName($song_name, $limit = 10)
     {
-        $this->db->query("SELECT * FROM songs WHERE title LIKE :song_name LIMIT :limit");
+        $this->db->query("SELECT * FROM songs WHERE title LIKE :song_name LIMIT " . intval($limit));
         $searchPattern = "%" . $song_name . "%";
         $this->db->bind(":song_name", $searchPattern);
-        $this->db->bind(":limit", $limit);
         return $this->db->fetchAllResults();
     }
     
