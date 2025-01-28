@@ -1,14 +1,31 @@
 <?php
 
-require_once "database.php";
+require_once("model.php");
 
-class Register
+class User extends Model
 {
-    private $db;
-
-    public function __construct()
+    public function getUserFromUsername($username)
     {
-        $this->db = new Database();
+        $this->db->query("SELECT * FROM users WHERE username=:username");
+        
+        $this->db->bind(":username", $username);
+
+        return $this->db->fetchSingleResult();
+    }
+
+    public function getUserFromId($id)
+    {
+        $this->db->query("SELECT username FROM users WHERE id=:id");
+        
+        $this->db->bind(":id", $id);
+
+        return $this->db->fetchSingleResult();
+    }
+
+    public function getUsernameFromId($id)
+    {
+        $user = $this->getUserFromId($id);
+        return $user["username"];
     }
 
     public function addUser($username, $email, $password)
@@ -37,5 +54,4 @@ class Register
         $result = $this->db->fetchSingleResult();
         return (empty($result) == false);
     }
-
 }
