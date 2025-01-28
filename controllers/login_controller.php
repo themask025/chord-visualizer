@@ -35,10 +35,10 @@ class LoginController extends Controller
                     header("Location: views/home/index.php");
                     exit;
                 } else {
-                    $this->error = "Wrong password!";
+                    $this->error = "Invalid username or password.";
                 }
             } else {
-                $this->error = "User not found.";
+                $this->error = "Invalid username or password.";
             }
         }
 
@@ -55,7 +55,16 @@ class LoginController extends Controller
             if (isset($_SESSION["user_id"])) {
                 session_unset();
                 session_destroy();
-                header("Location: /chord-visualizer/");
+
+                $sender = $_POST["sender"];
+
+                if($sender == "/chord-visualizer/version/initTab")
+                {
+                    header("Location: /chord-visualizer/");
+                    exit;
+                }
+                
+                header("Location:" . $sender);
                 exit;
             }
         }
