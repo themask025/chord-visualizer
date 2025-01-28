@@ -28,6 +28,15 @@ if ($data["page_type"] === "song_creation") {
 if ($data["can_edit"] === false) {
   $class_name = "display-none";
 }
+
+$song_name = $data["song_name"];
+$song_author = $data["song_author"];
+$version_creator = $data["version_creator"];
+
+echo "<h2>\"{$song_name}\" by \"{$song_author}\"</h2>";
+if ($data["page_type"] === "song_view") {
+    echo "<h3>Tabs created by user <em>{$version_creator}</em></h3>";
+}
 ?>
     <div class="bpm-container">
       <p>BPM: <output id="bpm-value"></output></p>
