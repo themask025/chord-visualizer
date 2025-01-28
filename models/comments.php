@@ -1,6 +1,6 @@
 <?php
 
-require "models/database.php";
+require_once "models/database.php";
 
 class Comments
 {
