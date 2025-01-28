@@ -87,7 +87,7 @@ class VersionController extends Controller
         $can_edit = true;
       }
 
-      $data = ["page_type" => $page_type, "version_id" => $version["id"], "version_data" => json_decode($version["content"]), "can_edit" => $can_edit, "song_name" => $song["title"], "song_author" => $song["performer"]];
+      $data = ["version_creator" => $version["creator_id"], "page_type" => $page_type, "version_id" => $version["id"], "version_data" => json_decode($version["content"]), "can_edit" => $can_edit, "song_name" => $song["title"], "song_author" => $song["performer"]];
       $this->renderView('tab_editor', $data);
     }
 
