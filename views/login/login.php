@@ -25,7 +25,8 @@
     <label for="password">Password:</label>
     <input class="form-input" type="password" id="password" name="password" required>
 
-    <button class="submit-button" type="submit">Register</button>
+    <button class="submit-button" type="submit">Login</button>
+    <a href="<?php echo BASE_PATH; ?>register">Or Sign up</a>
   </form>
 </body>
 
