@@ -1,9 +1,11 @@
-* {
+/* * {
   font-family: Inter;
   font-size: 32px;
-}
+} */
 
 .navbar {
+  font-family: Inter;
+  font-size: 32px;
   margin: 32px;
   padding: 0;
   display: flex;
