@@ -346,8 +346,13 @@ if (json_data_element != null) {
   song_name_form_element.value = json_data.song_name;
   song_author_form_element.value = json_data.song_author;
   version_id_form_element.value = json_data.version_id;
+  if (json_data.version_data) {
   set_bpm(json_data.version_data.bpm);
   note_sequence = json_data.version_data.note_sequence;
+  } else {
+    set_bpm(60);
+    note_sequence = [];
+  }
   json_data_element.remove();
   draw_tabs();
 } else {

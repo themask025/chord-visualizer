@@ -26,7 +26,7 @@ class VersionController extends Controller
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
       $this->version_model->updateVersion($_POST["version_id"], "TAB", $_POST["version_data"]);
-      $this->index();
+      header("Location: /chord-visualizer/version/tabEditor?version_id={$_POST["version_id"]}");
     }
   }
 
@@ -34,7 +34,7 @@ class VersionController extends Controller
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-      if (!isset($_POST["song_name"]) || !isset($_POST["song_author"])) {
+      if (isset($_POST["song_name"]) && isset($_POST["song_author"])) {
         $data = ["page_type" => "song_creation", "can_edit" => true, "song_name" => $_POST["song_name"],"song_author" => $_POST["song_author"]];
         $this->renderView('tab_editor', $data);
       }
@@ -58,7 +58,7 @@ class VersionController extends Controller
       }
 
       $this->version_model->createVersion($_SESSION["user_id"],$song["id"],"TAB",$_POST["version_data"]);
-      $this->index();
+      header("Location: /chord-visualizer/version/searchSongVersions?song_id={$song["id"]}");
     }
   }
 
