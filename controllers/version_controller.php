@@ -6,7 +6,7 @@ class VersionController extends Controller
   private $version_model;
   private $song_model;
   private $default_version;
-  private $comments_model;
+  private $comment_model;
   private $user_model;
 
 
@@ -14,7 +14,7 @@ class VersionController extends Controller
   {
     $this->version_model = $this->loadModel('Version');
     $this->song_model = $this->loadModel('Song');
-    $this->comments_model = $this->loadModel('Comments');
+    $this->comment_model = $this->loadModel('Comment');
     $this->user_model = $this->loadModel('User');
   }
 
@@ -100,10 +100,23 @@ class VersionController extends Controller
       if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] === $version["creator_id"]) {
         $can_edit = true;
       }
+      $comments = $this->comment_model->getComments($version["id"]);
+      foreach ($comments as $key => $comment) {
+        $comments[$key]["username"] = $this->user_model->getUsernameFromId($comment["author_id"]);
+      }
 
       $username = $this->user_model->getUsernameFromId($version["creator_id"]);
 
-      $data = ["version_creator" => $username, "page_type" => $page_type, "version_id" => $version["id"], "version_data" => json_decode($version["content"]), "can_edit" => $can_edit, "song_name" => $song["title"], "song_author" => $song["performer"]];
+      $data = [
+        "version_creator" => $username,
+        "page_type" => $page_type,
+        "version_id" => $version["id"],
+        "version_data" => json_decode($version["content"]),
+        "can_edit" => $can_edit,
+        "song_name" => $song["title"],
+        "song_author" => $song["performer"],
+        "comments" => $comments
+      ];
       $this->renderView('tab_editor', $data);
     }
 
@@ -119,7 +132,7 @@ class VersionController extends Controller
 
       foreach ($versions as $key => $version)
       {
-        $versions[$key]["comments_count"] = count($this->comments_model->getComments($version["id"]));
+        $versions[$key]["comments_count"] = count($this->comment_model->getComments($version["id"]));
         $search_results[$key]["href"] = "/chord-visualizer/version/tabEditor?version_id={$version["id"]}";
         $search_results[$key]["main"] = "Version {$key}";
         $search_results[$key]["sub"] = $versions[$key]["version_author"];

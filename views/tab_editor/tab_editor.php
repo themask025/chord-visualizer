@@ -14,12 +14,14 @@ require_once(__DIR__."/../navigation_bar/index.php");
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
-if (isset($data)) {
-  echo '<p id="json-data">'.json_encode($data).'</p>';
+if (!isset($data)) {
+  exit;
 }
+echo '<p id="json-data">'.json_encode($data).'</p>';
 $action = "/chord-visualizer/version/updateTab";
 $submit_name = "Update tab";
 $class_name = "";
+$logged_in = isset($_SESSION["user_id"]);
 if ($data["page_type"] === "song_creation") {
   $action = "/chord-visualizer/version/createTab";
   $submit_name = "Create tab";
@@ -61,9 +63,29 @@ echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$a
       <input class="display-none" type="text" id="song-name" name="song_name" />
       <input class="display-none" type="text" id="song-author" name="song_author" />
 <?php
-echo "<input type=\"submit\" value=\"{$submit_name}\"/>"
+echo "<input type=\"submit\" value=\"{$submit_name}\"/>";
+echo "</form>";
 ?>
-    </form>
+
+<?php
+if ($logged_in) {
+  echo '<form id="comment-form" method="POST" action="/chord-visualizer/comment/addComment">';
+  echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
+  echo "<input class=\"display-none\" type=\"text\" id=\"user-id\" name=\"user_id\" value=\"{$_SESSION["user_id"]}\" />";
+  echo "<input class=\"display-none\" type=\"text\" id=\"version-id\" name=\"version_id\" value=\"{$version_id}\" />";
+  echo '<input type="submit" value="Create comment" />';
+  echo '</form>';
+}
+
+foreach ($data["comments"] as $comment) {
+  echo $comment["content"];
+  echo "<br />";
+  echo "by ".$comment["username"];
+  echo "<br />";
+  echo "on ".$comment["upload_timestamp"];
+  echo "<br />";
+}
+?>
     <script src="/chord-visualizer/views/tab_editor/tab_editor.js"></script>
   </body>
 </html>

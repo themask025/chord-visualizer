@@ -2,7 +2,7 @@
 
 require_once "models/database.php";
 
-class Comments
+class Comment
 {
     private $db;
 
@@ -42,6 +42,7 @@ class Comments
         $this->db->bind(":author", $author_id);
         $this->db->bind(":upload_timestamp", $timestamp);
         $this->db->bind(":content", $content);
+        echo "YES";
 
         return $this->db->execute();
     }

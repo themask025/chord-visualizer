@@ -8,7 +8,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        $this->comment_model = $this->loadModel('Comments');
+        $this->comment_model = $this->loadModel('Comment');
         $this->user_model = $this->loadModel('User');
     }
 
@@ -46,7 +46,6 @@ class CommentController extends Controller
     public function updateComment()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $this->checkUser($_POST['user_id']);
             $user_id = $_POST['user_id'];
             $comment_id = $_POST['comment_id'];
@@ -58,10 +57,4 @@ class CommentController extends Controller
             header("Location: /chord-visualizer/version/tabEditor?version_id={$version_id}");
         }
     }
-
-    public function updateController()
-    {
-
-    }
-
 }
