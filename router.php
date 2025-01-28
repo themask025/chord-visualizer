@@ -8,8 +8,8 @@ class Router
 
     private function use_default_controller()
     {
-        require_once __DIR__ . '/controllers/login_controller.php';
-        $controller = new LoginController();
+        require_once __DIR__ . '/controllers/home_controller.php';
+        $controller = new HomeController();
         $controller->index();
     }
 
