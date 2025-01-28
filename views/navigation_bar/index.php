@@ -13,7 +13,7 @@
 <body>
 
     <nav class="navbar">
-        <a href="/chord-visualizer/login" class="navbar logo">CHORD VISUALIZER</a>
+        <a href="/chord-visualizer/" class="navbar logo">CHORD VISUALIZER</a>
 
         <?php
         if (session_status() === PHP_SESSION_NONE) {
