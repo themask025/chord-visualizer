@@ -304,6 +304,8 @@ const find_fretting_element = (quarter_note_index) => {
 };
 
 const play_tabs = () => {
+  if (note_sequence.length == 0) return;
+
   let delay = Tone.now();
 
   bpm_slider.disabled = true;
@@ -325,15 +327,8 @@ const play_tabs = () => {
   }
 
   Tone.Draw.schedule(() => {
-    if (note_sequence.length == 0) return;
-
     const fretting_element = find_fretting_element(note_sequence.length - 1);
     fretting_element.className = "fretting-element";
-
-    for (let button of document.getElementsByTagName("button")) {
-      button.disabled = false;
-      bpm_slider.disabled = false;
-    }
   }, delay);
 };
 
