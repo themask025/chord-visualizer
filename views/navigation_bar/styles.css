@@ -1,0 +1,22 @@
+/* * {
+  font-family: Inter;
+  font-size: 32px;
+} */
+
+.navbar {
+  font-family: Inter;
+  font-size: 32px;
+  margin: 32px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login_button {
+  text-decoration: none;
+}
