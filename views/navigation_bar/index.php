@@ -19,10 +19,10 @@
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        // session_start();
+
         if (isset($_SESSION["user_id"])) {
         ?>
-            <form method="post" class="navbar logout_form">
+            <form action="<?php echo BASE_PATH; ?>login/logout" method="post" class="navbar logout_form">
                 <label for="navbar logout_button"><?php echo $_SESSION["username"]; ?></label>
                 <button type="submit" id="logout_button">Log out</button>
             </form>
