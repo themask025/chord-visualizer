@@ -68,7 +68,7 @@ echo "</form>";
 ?>
 
 <?php
-if ($logged_in) {
+if ($logged_in && $data["page_type"] === "song_view") {
   echo '<form id="comment-form" method="POST" action="/chord-visualizer/comment/addComment">';
   echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
   echo "<input class=\"display-none\" type=\"text\" id=\"user-id\" name=\"user_id\" value=\"{$_SESSION["user_id"]}\" />";
