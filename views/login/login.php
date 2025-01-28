@@ -12,6 +12,12 @@
 
 <body>
   <h1 class="title">Login</h1>
+  <?php
+    if($this->error != null)
+    {
+      echo "<h2 class=\"title\">" . $this->error . "</h2>";
+    }
+  ?>
   <form class="login-form" method="post">
     <label for="username">Username:</label>
     <input class="form-input" type="text" id="username" name="username" required>
