@@ -23,6 +23,7 @@
         if (isset($_SESSION["user_id"])) {
         ?>
             <form action="<?php echo BASE_PATH; ?>login/logout" method="post" class="navbar logout_form">
+                <input type="text" name="sender" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden>
                 <label for="navbar logout_button"><?php echo $_SESSION["username"]; ?></label>
                 <button type="submit" id="logout_button">Log out</button>
             </form>
