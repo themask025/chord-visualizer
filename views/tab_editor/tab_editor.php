@@ -9,7 +9,11 @@
   </head>
   <body>
 <?php
-session_start();
+require_once(__DIR__."/../navigation_bar/index.php");
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 if (isset($data)) {
   echo '<p id="json-data">'.json_encode($data).'</p>';
 }
@@ -28,18 +32,18 @@ if ($data["can_edit"] === false) {
     <div class="bpm-container">
       <p>BPM: <output id="bpm-value"></output></p>
 <?php
-    echo "<input class=\"{$class_name}\" type=\"range\" min=\"1\" max=\"300\" id=\"bpm-slider\" />";
+echo "<input class=\"{$class_name}\" type=\"range\" min=\"1\" max=\"300\" id=\"bpm-slider\" />";
 ?>
     </div>
     <div id="tabs-container"></div>
 <?php
-    echo "<button class=\"{$class_name}\" id=\"add-bar-button\">Add bar</button>";
+echo "<button class=\"{$class_name}\" id=\"add-bar-button\">Add bar</button>";
 ?>
     <button id="play-tabs-button">Play tabs</button>
     <input type="file" accept=".json" id="tabs-uploader" />
     <button id="tabs-downloader">Download current tab data</button>
 <?php
-  echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
+echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
 ?>
       <input class="display-none" type="text" id="version-id" name="version_id" />
       <input class="display-none" type="text" id="version-data" name="version_data" />
