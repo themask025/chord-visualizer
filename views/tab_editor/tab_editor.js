@@ -76,10 +76,10 @@ const tabs_downloader = document.querySelector("#tabs-downloader");
 const json_data_element = document.getElementById("json-data");
 const song_id_form_element = document.getElementById("song-id");
 const user_id_form_element = document.getElementById("user-id");
-const version_name_element = document.getElementById("version-name");
-const song_title_element = document.getElementById("song-title");
-const performer_element = document.getElementById("performer");
-const content_element = document.getElementById("content");
+const version_name_form_element = document.getElementById("version-name");
+const song_title_form_element = document.getElementById("song-title");
+const performer_form_element = document.getElementById("performer");
+const content_form_element = document.getElementById("content");
 
 // ACTUAL CODE
 let bpm = DEFAULT_BPM;
@@ -276,7 +276,7 @@ const draw_tabs = () => {
     tabs_container.appendChild(create_bar_element(i));
   }
 
-  content_element.value = JSON.stringify({ bpm, note_sequence });
+  content_form_element.value = JSON.stringify({ bpm, note_sequence });
 };
 
 const get_notes_from_fretting = (fretting) => {
@@ -342,12 +342,12 @@ const play_tabs = () => {
 
 if (json_data_element != null) {
   const json_data = JSON.parse(json_data_element.textContent);
-  console.log(json_data);
 
   song_id_form_element.value = json_data.version.song_id;
-  version_name_element.value = json_data.version.version_name;
-  set_bpm(json_data.version.content.bpm);
-  note_sequence = json_data.version.content.note_sequence;
+  version_name_form_element.value = json_data.version.name;
+  const music_data = JSON.parse(json_data.version.content);
+  set_bpm(music_data.bpm);
+  note_sequence = music_data.note_sequence;
   json_data_element.remove();
 }
 
