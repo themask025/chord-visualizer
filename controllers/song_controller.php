@@ -17,6 +17,8 @@ class SongController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'GET')
         {
             $songs = $this->song_model->filterSongsByName($_GET["song_name"]);
+            $search_results = [];
+
             foreach ($songs as $key => $song)
             {
                 $version_count = count($this->version_model->getVersionsNameAuthorBySongId($song["id"]));
