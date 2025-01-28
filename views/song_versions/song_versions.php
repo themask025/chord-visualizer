@@ -1,22 +1,21 @@
 <?php
 if(isset($data))
 {
-    echo json_encode($data);
-    echo "<h1> Song Versions </h1>";
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Version Name</th>";
-    echo "<th>Creator</th>";
-    echo "<th>Comment count</th>";
-    echo "</tr>";
-    foreach($data["versions"] as $version)
+    echo "<h2 class=\"results-heading\"> Search Results for \"{$data["song"]["title"]}\" by \"{$data["song"]["performer"]}\" </h2>";
+    echo "<hr class=\"results-hr\">";
+
+    echo "<div class=\"results-list\">";
+    foreach($data["versions"] as $i => $version)
     {
-        echo "<tr>";
-        echo "<td>".$version["name"]."</td>";
-        echo "<td>".$version["username"]."</td>";
-        echo "<td>".$version["comments_count"]."</td>";
-        echo "</tr>";
+        echo "<a class=\"results-item\" href=\"/chord-visualizer/version/tabEditor?version_id={$version["id"]}\">";
+        echo "<span class=\"results-item-span-top-left\">Version {$i}</span>";
+        echo " ";
+        echo "<span class=\"results-item-span-bottom-left\">By {$version["username"]}</span>";
+        echo " ";
+        echo "<span class=\"results-item-span-right\">{$version["comments_count"]} comments</span>";
+        echo "</a>";
+        echo "<br/>";
     }
-    echo "</table>";
+    echo "</div>";
 
 }

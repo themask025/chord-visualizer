@@ -74,11 +74,12 @@ class VersionController extends Controller
         {
             $song_id = $_GET["song_id"];
             $versions = $this->version_model->getVersionsNameAuthorBySongId($song_id);
+            $song = $this->song_model->getSongById($song_id);
             foreach ($versions as $key => $version)
             {
                 $versions[$key]["comments_count"] = count($this->comments_model->getComments($version["id"]));
             }
-            $data  = ["versions" => $versions];
+            $data  = ["song" => $song, "versions" => $versions];
             $this->renderView('song_versions', $data);
         }
 

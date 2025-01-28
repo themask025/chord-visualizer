@@ -4,7 +4,7 @@ class Song extends Model
 {
     public function getSongById($songId)
     {
-        $this->db->query("SELECT * FROM songs WHERE song_id = :song_id");
+        $this->db->query("SELECT * FROM songs WHERE id = :song_id");
         $this->db->bind(":song_id", $songId);
         return $this->db->fetchSingleResult();
     }
@@ -34,7 +34,7 @@ class Song extends Model
     
     public function getVersionCountOfSong($song_id)
     {
-        $this->db->query("SELECT COUNT(*) as 'count' FROM versions WHERE song_id = :song_id");
+        $this->db->query("SELECT COUNT(*) as 'count' FROM versions WHERE id = :song_id");
         $this->db->bind(":song_id", $song_id);
         $this->db->execute();
         return $this->db->fetchSingleResult();
