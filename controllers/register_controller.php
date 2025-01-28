@@ -35,9 +35,11 @@ class RegisterController extends Controller
                     session_start();
                     session_regenerate_id();
                     $_SESSION["user_id"] = $user["id"];
+                    $_SESSION["username"] = $user["username"];
 
                     header("Location: views/home/index.php");
                     exit;
+
                 } else {
                     $this->error = "Unsuccessful registration.";
                 }
