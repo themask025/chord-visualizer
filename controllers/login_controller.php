@@ -26,7 +26,7 @@ class LoginController extends Controller
             $user = $model->getUserFromUsername($username);
 
             if ($user != false) {
-                if ($_POST["password"] == $user["password"]) {
+                if (password_verify($_POST["password"], $user["password"]) == true) {
                     session_start();
                     session_regenerate_id();
                     $_SESSION["user_id"] = $user["id"];

@@ -26,8 +26,11 @@ class RegisterController extends Controller
             $password_confirmation = $_POST['password_confirmation'];
 
             if ($this->is_valid_input($username, $email, $password, $password_confirmation) == true) {
+                
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
+                
                 $model = $this->loadModel("user");
-                $status = $model->addUser($username, $email, $password);
+                $status = $model->addUser($username, $email, $password_hash);
                 if ($status == true) {
                     $user = $model->getUserFromUsername($username);
 
