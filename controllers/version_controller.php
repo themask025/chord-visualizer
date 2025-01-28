@@ -99,12 +99,18 @@ class VersionController extends Controller
       $song_id = $_GET["song_id"];
       $versions = $this->version_model->getVersionsNameAuthorBySongId($song_id);
       $song = $this->song_model->getSongById($song_id);
+      $search_results = [];
+
       foreach ($versions as $key => $version)
       {
         $versions[$key]["comments_count"] = count($this->comments_model->getComments($version["id"]));
+        $search_results[$key]["href"] = "/chord-visualizer/version/tabEditor?version_id={$version["id"]}";
+        $search_results[$key]["main"] = "Version {$key}";
+        $search_results[$key]["sub"] = $versions[$key]["version_author"];
+        $search_results[$key]["count"] = "{$versions[$key]["comments_count"]} comments";
       }
-      $data  = ["song" => $song, "versions" => $versions];
-      $this->renderView('song_versions', $data);
+      $data  = ["search_query" => 'All versions of "'.$song["title"].'" by "'.$song["performer"].'"', "search_results" => $search_results];
+      $this->renderView('search_results', $data);
     }
 
   }
