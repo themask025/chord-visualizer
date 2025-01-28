@@ -1,12 +1,3 @@
-// DEFAULT VALUES
-const DEFAULT_BPM = 60;
-const DEFAULT_NOTE_SEQUENCE = [
-  { e: 0, B: 1, G: 2, D: 2, A: 0 },
-  { e: 3, B: 0, G: 0, D: 0, A: 2, E: 3 },
-  { e: 1, B: 1, G: 2, D: 2, A: 3, E: 1 },
-  { e: 0, B: 0, G: 1, D: 1, A: 2, E: 0 },
-];
-
 // GUITAR STUFF
 const get_note_list = () => {
   const note_names = [
@@ -74,16 +65,16 @@ const play_tabs_button = document.querySelector("#play-tabs-button");
 const tabs_uploader = document.querySelector("#tabs-uploader");
 const tabs_downloader = document.querySelector("#tabs-downloader");
 const json_data_element = document.getElementById("json-data");
-const song_id_form_element = document.getElementById("song-id");
 const user_id_form_element = document.getElementById("user-id");
-const version_name_form_element = document.getElementById("version-name");
-const song_title_form_element = document.getElementById("song-title");
-const performer_form_element = document.getElementById("performer");
-const content_form_element = document.getElementById("content");
+const version_id_form_element = document.getElementById("version-id");
+const version_data_form_element = document.getElementById("version-data");
+const song_name_form_element = document.getElementById("song-name");
+const song_author_form_element = document.getElementById("song-author");
 
 // ACTUAL CODE
-let bpm = DEFAULT_BPM;
-let note_sequence = DEFAULT_NOTE_SEQUENCE;
+let bpm;
+let note_sequence;
+let can_edit;
 
 const reader = new FileReader();
 reader.addEventListener("load", (event) => {
@@ -102,10 +93,8 @@ const set_bpm = (new_bpm) => {
   Tone.getTransport().bpm.value = bpm;
   bpm_slider.value = bpm;
   value.textContent = bpm;
-  content.value = JSON.stringify({ bpm, note_sequence });
+  version_data_form_element.value = JSON.stringify({ bpm, note_sequence });
 };
-
-set_bpm(DEFAULT_BPM);
 
 tabs_downloader.addEventListener("click", () => {
   const blob = new Blob([JSON.stringify({ bpm, note_sequence })], {
@@ -126,9 +115,9 @@ tabs_uploader.addEventListener("change", (_) => {
 });
 
 bpm_slider.addEventListener("input", (event) => {
+  event.preventDefault();
   bpm = event.target.value;
-  value.textContent = bpm;
-  Tone.getTransport().bpm.value = bpm;
+  set_bpm(bpm);
 });
 
 add_bar_button.addEventListener("click", (_) => {
@@ -173,6 +162,8 @@ const create_fretting_element = (fretting, index) => {
       string_fretting_control_element.textContent = fretting[string];
 
     string_fretting_control_element.onclick = () => {
+      if (!can_edit) return;
+
       const new_fret = prompt("Choose new fret number:");
 
       if (
@@ -198,7 +189,8 @@ const create_bar_element = (bar_index) => {
   bar_element.className = "bar";
 
   const remove_bar_button = document.createElement("button");
-  remove_bar_button.className = "remove-bar";
+  remove_bar_button.className =
+    "remove-bar" + (can_edit ? "" : " dont-display");
   remove_bar_button.textContent = "X";
   remove_bar_button.onclick = () => {
     note_sequence.splice(bar_index * 4, 4);
@@ -232,9 +224,11 @@ const create_bar_element = (bar_index) => {
       "empty-fretting-insertor" +
       (i == 4 && (bar_index + 1) * 4 < note_sequence.length
         ? " dont-display"
-        : "");
+        : "") +
+      (can_edit ? "" : " dont-display");
     empty_fretting_insertor.innerText = "V";
     empty_fretting_insertor.onclick = () => {
+      if (!can_edit) return;
       note_sequence.splice(bar_index * 4 + i, 0, {});
       if (
         is_subsequence(Object.values(note_sequence[note_sequence.length - 1]), [
@@ -244,14 +238,17 @@ const create_bar_element = (bar_index) => {
         note_sequence.pop();
       draw_tabs();
     };
+
     bar_element.appendChild(empty_fretting_insertor);
   }
 
   for (let i = 0; i < 4; ++i) {
     const fretting_deletor = document.createElement("button");
-    fretting_deletor.className = "fretting-deletor";
+    fretting_deletor.className =
+      "fretting-deletor" + (can_edit ? "" : " dont-display");
     fretting_deletor.innerText = "X";
     fretting_deletor.onclick = () => {
+      if (!can_edit) return;
       note_sequence.splice(bar_index * 4 + i, 1);
       draw_tabs();
     };
@@ -276,7 +273,7 @@ const draw_tabs = () => {
     tabs_container.appendChild(create_bar_element(i));
   }
 
-  content_form_element.value = JSON.stringify({ bpm, note_sequence });
+  version_data_form_element.value = JSON.stringify({ bpm, note_sequence });
 };
 
 const get_notes_from_fretting = (fretting) => {
@@ -342,13 +339,17 @@ const play_tabs = () => {
 
 if (json_data_element != null) {
   const json_data = JSON.parse(json_data_element.textContent);
+  console.log(json_data);
 
-  song_id_form_element.value = json_data.version.song_id;
-  version_name_form_element.value = json_data.version.name;
-  const music_data = JSON.parse(json_data.version.content);
-  set_bpm(music_data.bpm);
-  note_sequence = music_data.note_sequence;
+  can_edit = json_data.can_edit;
+  // can_edit = true;
+  song_name_form_element.value = json_data.song_name;
+  song_author_form_element.value = json_data.song_author;
+  version_id_form_element.value = json_data.version_id;
+  set_bpm(json_data.version_data.bpm);
+  note_sequence = json_data.version_data.note_sequence;
   json_data_element.remove();
+  draw_tabs();
+} else {
+  alert("ERROR");
 }
-
-draw_tabs();
