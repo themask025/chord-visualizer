@@ -7,6 +7,7 @@ class VersionController extends Controller
   private $song_model;
   private $default_version;
   private $comments_model;
+  private $user_model;
 
 
   public function __construct()
@@ -14,6 +15,7 @@ class VersionController extends Controller
     $this->version_model = $this->loadModel('Version');
     $this->song_model = $this->loadModel('Song');
     $this->comments_model = $this->loadModel('Comments');
+    $this->user_model = $this->loadModel('User');
   }
 
   private function songExist($song_id)
@@ -99,7 +101,9 @@ class VersionController extends Controller
         $can_edit = true;
       }
 
-      $data = ["version_creator" => $version["creator_id"], "page_type" => $page_type, "version_id" => $version["id"], "version_data" => json_decode($version["content"]), "can_edit" => $can_edit, "song_name" => $song["title"], "song_author" => $song["performer"]];
+      $username = $this->user_model->getUsernameFromId($version["creator_id"]);
+
+      $data = ["version_creator" => $username, "page_type" => $page_type, "version_id" => $version["id"], "version_data" => json_decode($version["content"]), "can_edit" => $can_edit, "song_name" => $song["title"], "song_author" => $song["performer"]];
       $this->renderView('tab_editor', $data);
     }
 
