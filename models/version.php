@@ -20,18 +20,18 @@ class Version extends Model
         $this->db->bind(":version_id", $version_id);
         return $this->db->fetchSingleResult();
     }
-    public function getVersionsBySongId($song_id,$limit = 10,$offset = 0)
+    public function getVersionsNameAuthorBySongId($song_id,$limit = '10',$offset = '0')
     {
-        $this->db->query("SELECT * FROM versions WHERE song_id = :song_id LIMIT :limit OFFSET :offset");
+        $this->db->query("SELECT versions.id, versions.name, users.username FROM versions" .
+                            " JOIN users ON versions.creator_id = users.id WHERE song_id = :song_id LIMIT "
+                            . intval($limit)." OFFSET ".intval($offset));
         $this->db->bind(":song_id", $song_id);
-        $this->db->bind(":limit", $limit);
-        $this->db->bind(":offset", $offset);
         return $this->db->fetchAllResults();
     }
 
     public function getVersionsByUserId($user_id,$limit = 10,$offset = 0)
     {
-        $this->db->query("SELECT * FROM versions WHERE creator_id = :user_id LIMIT :limit OFFSET :offset");
+        $this->db->query("SELECT * FROM versions WHERE creator_id = :user_id LIMIT " . intval($limit)." OFFSET ".intval($offset));
         $this->db->bind(":user_id", $user_id);
         $this->db->bind(":limit", $limit);
         $this->db->bind(":offset", $offset);
