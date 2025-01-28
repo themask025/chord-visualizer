@@ -15,7 +15,7 @@ class VersionController extends Controller
         $this->song_model = $this->loadModel('Song');
         $this->comments_model = $this->loadModel('Comments');
         $this->default_version =
-            ["content" => json_decode(file_get_contents(__DIR__ . "/../example-songs/fly_me_to_the_moon.json"), true),
+            ["content" => file_get_contents(__DIR__ . "/../example-songs/fly_me_to_the_moon.json"),
              "version_name" => "Default",
              "song_id" => 0,
              "creator_id" => 0];
@@ -46,6 +46,7 @@ class VersionController extends Controller
             {
                 $version = $this->default_version;
             }
+
             $data = ["version" => $version];
             $this->renderView('tab_editor', $data);
         }
