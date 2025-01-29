@@ -1,11 +1,16 @@
 .navbar {
-  font-family: Inter;
+  position: fixed;
+  top: 0;
+  font-family: Inter, sans-serif;
   font-size: 32px;
   margin: 32px;
   padding: 0;
   display: flex;
   justify-content: space-between;
+  width: 95%;
 }
+
+
 
 .logo {
   font-weight: 700;
@@ -14,9 +19,8 @@
 }
 
 .username {
-  margin-right: 25px;
-  /* color: #fff; */
-  font-family: Inter;
+  /* margin-right: 25px; */
+  color: #ffffff;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;

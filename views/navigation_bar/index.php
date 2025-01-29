@@ -13,7 +13,7 @@ require_once(__DIR__ . "/../../constants.php");
 <body>
 
     <nav class="navbar">
-        <a href="/chord-visualizer/" class="navbar logo">CHORD VISUALIZER</a>
+        <a href="/chord-visualizer/" class="logo">CHORD VISUALIZER</a>
 
         <?php
         if (session_status() === PHP_SESSION_NONE) {
@@ -22,15 +22,15 @@ require_once(__DIR__ . "/../../constants.php");
 
         if (isset($_SESSION["user_id"])) {
         ?>
-            <form action="<?php echo BASE_PATH; ?>login/logout" method="post" class="navbar logout_form">
+            <form action="<?php echo BASE_PATH; ?>login/logout" method="post" class="logout_form">
                 <input type="text" name="sender" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden>
-                <label for="navbar logout_button" class="username"><?php echo $_SESSION["username"]; ?></label>
+                <label for="logout_button" class="username"><?php echo $_SESSION["username"]; ?></label>
                 <button type="submit" id="logout_button">Log out</button>
             </form>
         <?php
         } else {
         ?>
-            <a href="/chord-visualizer/login" class="navbar login_button", type>Log in</a>";
+            <a href="/chord-visualizer/login" class="login_button", type>Log in</a>";
         <?php
         }
         ?>
