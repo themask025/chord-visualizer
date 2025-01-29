@@ -73,8 +73,8 @@ class VersionController extends Controller
         $song = $this->song_model->getSongByNamePerformer($_POST["song_name"],$_POST["song_author"]);
       }
 
-      $this->version_model->createVersion($_SESSION["user_id"],$song["id"],"TAB",$_POST["version_data"]);
-      header("Location: /chord-visualizer/version/searchSongVersions?song_id={$song["id"]}");
+      $version_id = $this->version_model->createVersion($_SESSION["user_id"],$song["id"],"TAB",$_POST["version_data"]);
+      header("Location: /chord-visualizer/version/tabEditor?version_id={$version_id}");
     }
   }
 

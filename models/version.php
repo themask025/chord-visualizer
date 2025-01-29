@@ -13,6 +13,7 @@ class Version extends Model
         $this->db->bind(":version_name", $version_name);
         $this->db->bind(":content", $content);
         $this->db->execute();
+        return $this->db->getLastId();
     }
     public function getVersionById($version_id)
     {
