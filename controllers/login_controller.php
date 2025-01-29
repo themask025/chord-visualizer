@@ -42,7 +42,7 @@ class LoginController extends Controller
             }
         }
 
-        $this->renderView('login');
+        $this->renderView('login', ["auth_page" => true]);
     }
 
     public function logout()
