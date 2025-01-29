@@ -36,6 +36,7 @@
   $song_name = $data["song_name"];
   $song_author = $data["song_author"];
   $version_creator = $data["version_creator"];
+  $version_id = $data["version_id"];
 
   echo "<div class=\"song-info\">";
   echo "<h2 class=\"song-name\">Song name: {$song_name}</h2>";
@@ -53,7 +54,7 @@
       echo '<form id="comment-form" method="POST" action="/chord-visualizer/comment/addComment">';
       echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"user-id\" name=\"user_id\" value=\"{$_SESSION["user_id"]}\" />";
-      echo "<input class=\"display-none\" type=\"text\" id=\"version-id\" name=\"version_id\" value=\"{$version_id}\" />";
+      echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id\" name=\"version_id\" value=\"{$version_id}\" />";
       echo '<input type="submit" hidden />';
       echo '</form>';
     }
@@ -85,8 +86,8 @@
     <button id="tabs-downloader">Download current tab data</button>
     <?php
     echo "<form class=\"{$class_name}\" id=\"tab-form\" method=\"POST\" action=\"{$action}\">";
+    echo "<input class=\"display-none\" type=\"text\" id=\"version-id\" name=\"version_id\" />";
     ?>
-    <input class="display-none" type="text" id="version-id" name="version_id" />
     <input class="display-none" type="text" id="version-data" name="version_data" />
     <input class="display-none" type="text" id="song-name" name="song_name" />
     <input class="display-none" type="text" id="song-author" name="song_author" />
