@@ -66,6 +66,10 @@
       echo "<div class=\"comment-content\">{$comment["content"]}</div>";
       echo "</div>";
     }
+
+    if (count($data["comments"]) == 0) {
+      echo "<p>No comments here</p>";
+    }
     ?>
   </div>
   <div id="tab-related-buttons-footer">
