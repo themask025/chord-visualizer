@@ -46,8 +46,16 @@ class CommentController extends Controller
     public function updateComment()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->checkUser($_POST['user_id']);
-            $user_id = $_POST['user_id'];
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            if(!isset($_SESSION["user_id"])) {
+                header("Location: /chord-visualizer/");
+                exit;
+            }
+
+            $user_id = $_SESSION["user_id"];
             $comment_id = $_POST['comment_id'];
             $comment_text = $_POST['comment_text'];
             $version_id = $_POST['version_id'];
