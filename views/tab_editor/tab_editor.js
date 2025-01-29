@@ -278,6 +278,16 @@ const get_notes_from_fretting = (fretting) => {
   return notes;
 };
 
+const scrollIntoViewWithOffset = (element, offset) => {
+  window.scrollTo({
+    behavior: 'smooth',
+    top:
+      element.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top -
+      offset,
+  })
+}
+
 const style_current_notes = (quarter_note_index) => {
   if (quarter_note_index > 0) {
     const last_element = find_fretting_element(quarter_note_index - 1);
@@ -286,6 +296,7 @@ const style_current_notes = (quarter_note_index) => {
 
   const current_element = find_fretting_element(quarter_note_index);
   current_element.className = "fretting-element active";
+  scrollIntoViewWithOffset(current_element, 32);
 };
 
 const find_fretting_element = (quarter_note_index) => {
