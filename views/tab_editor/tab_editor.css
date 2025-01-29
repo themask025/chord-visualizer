@@ -47,6 +47,10 @@ body {
   color: #a6a6a6;
 }
 
+.comment-timestamp {
+  text-align: end;
+}
+
 .fretting-control {
   z-index: 1;
   width: 2.9em;
