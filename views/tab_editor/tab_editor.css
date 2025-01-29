@@ -215,6 +215,10 @@ input:disabled,
   color: white !important;
 }
 
+.comment-text:disabled {
+  filter: none !important;
+}
+
 .update-comment-form {
   width: 100%;
 }
