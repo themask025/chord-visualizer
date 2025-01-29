@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php
-    require_once(__DIR__ . "/../../constants.php");
+require_once(__DIR__ . "/../../constants.php");
 ?>
 
 <head>
@@ -24,12 +24,14 @@
         ?>
             <form action="<?php echo BASE_PATH; ?>login/logout" method="post" class="navbar logout_form">
                 <input type="text" name="sender" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden>
-                <label for="navbar logout_button"><?php echo $_SESSION["username"]; ?></label>
+                <label for="navbar logout_button" class="username"><?php echo $_SESSION["username"]; ?></label>
                 <button type="submit" id="logout_button">Log out</button>
             </form>
         <?php
         } else {
-            echo "<a href=\"/chord-visualizer/login\" class=\"navbar login_button\", type>Log in</a>";
+        ?>
+            <a href="/chord-visualizer/login" class="navbar login_button", type>Log in</a>";
+        <?php
         }
         ?>
     </nav>
