@@ -45,7 +45,7 @@ class RegisterController extends Controller
             }
         }
 
-        $this->renderView('register');
+        $this->renderView('register', ["auth_page" => true]);
     }
 
     private function is_valid_input($username, $email, $password, $password_confirmation)
