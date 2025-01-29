@@ -53,7 +53,6 @@
     if ($logged_in && $data["page_type"] === "song_view") {
       echo '<form id="comment-form" method="POST" action="/chord-visualizer/comment/addComment">';
       echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
-      echo "<input class=\"display-none\" type=\"text\" id=\"user-id\" name=\"user_id\" value=\"{$_SESSION["user_id"]}\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id\" name=\"version_id\" value=\"{$version_id}\" />";
       echo '<input type="submit" hidden />';
       echo '</form>';
@@ -63,7 +62,12 @@
       echo "<div class=\"comment\">";
       echo "<div class=\"comment-author\">{$comment["username"]}</div>";
       echo "<div class=\"comment-timestamp\">{$comment["upload_timestamp"]}</div>";
-      echo "<div class=\"comment-content\">{$comment["content"]}</div>";
+      echo "<form class=\"update-comment-form\" method=\"POST\" action=\"/chord-visualizer/comment/updateComment\">";
+      echo "<input class=\"comment-text\" type=\"text\" id=\"comment-text-" . $comment["id"] . "\" placeholder=\"Update your comment\" name=\"comment_text\"" . (!isset($_SESSION["user_id"]) || $comment["author_id"] != $_SESSION["user_id"] ? " disabled" : "") . " value=\"{$comment["content"]}\" />";
+      echo "<input class=\"display-none\" type=\"text\" id=\"comment-id-" . $comment["id"] . "\" name=\"comment_id\" value=\"{$comment["id"]}\" />";
+      echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id-" . $comment["id"] . "\" name=\"version_id\" value=\"{$version_id}\" />";
+      echo '<input type="submit" hidden />';
+      echo "</form>";
       echo "</div>";
     }
 

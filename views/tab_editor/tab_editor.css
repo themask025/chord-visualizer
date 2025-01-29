@@ -35,6 +35,7 @@ body {
   flex-wrap: wrap;
   border: 1px solid #8d8d8d;
   border-radius: 1em;
+  row-gap: 8px;
 }
 
 .comment-author,
@@ -202,10 +203,24 @@ input:disabled,
 }
 
 #comment-text {
-  padding: 1em;
   border-radius: 1em;
   width: 300px;
   font-size: 16px;
+  padding: 1em !important;
+}
+
+.comment-text {
+  background: none;
+  border: none;
+  color: white !important;
+}
+
+.update-comment-form {
+  width: 100%;
+}
+
+#comment-form {
+  width: 100%;
 }
 
 form {
