@@ -307,7 +307,8 @@ const play_tabs = () => {
   for (let input of document.getElementsByTagName("input")) {
     input.disabled = true;
   }
-  document.getElementById("tabs-uploader-label").className = "disabled-label";
+  document.getElementById("tabs-uploader-label").className =
+    "disabled-label" + !can_edit ? " display-none" : "";
 
   for (let i = 0; i < note_sequence.length; ++i) {
     Tone.Draw.schedule(() => {
@@ -333,7 +334,10 @@ const play_tabs = () => {
     for (let input of document.getElementsByTagName("input")) {
       input.disabled = false;
     }
-    document.getElementById("tabs-uploader-label").className = "";
+
+    document.getElementById("tabs-uploader-label").className = !can_edit
+      ? "display-none"
+      : "";
   }, delay);
 };
 
