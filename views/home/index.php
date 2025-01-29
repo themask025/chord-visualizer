@@ -48,6 +48,7 @@ require_once(__DIR__ . "/../../constants.php");
         <?php
         if (isset($_SESSION["user_id"])) {
             echo '<p class="song-creation-label"> or <a onclick="set_form_hidden(false)"><u class="song-creation-link">add tabs for a song</u></a> </p>';
+            echo '</div>';
             echo '<div class="song-form-blur" hidden>';
             echo '<div class="song-form-background" hidden>';
             echo '<form class="song-form" action="/chord-visualizer/version/initTab" method="post" hidden>';
@@ -59,8 +60,10 @@ require_once(__DIR__ . "/../../constants.php");
             echo '</div>';
             echo '</div>';
         }
+        else
+            echo '</div>';
         ?>
-    </div>
+    
 </body>
 
 </html>
