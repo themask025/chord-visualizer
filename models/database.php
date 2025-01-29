@@ -49,6 +49,11 @@ class Database
         return $this->stmt->execute();
     }
 
+    public function getLastId()
+    {
+        return $this->dbh->lastInsertId();
+    }
+
     public function fetchSingleResult()
     {
         $this->execute();
