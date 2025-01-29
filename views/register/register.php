@@ -5,11 +5,11 @@
   <title>Registration Form</title>
     <?php
     require_once 'constants.php';
+    require_once(__DIR__ . "/../navigation_bar/index.php");
     echo '<link rel="stylesheet"' . ' href="'. BASE_PATH . 'views/register/register.css" />';
     ?>
 </head>
 <body>
-<h1 class="title">Register</h1>
 <?php
     if($this->error != null)
     {
@@ -17,20 +17,23 @@
     }
   ?>
 <form class="register-form" method="post">
-  <label for="username">Username:</label><br>
-  <input class="form-input" type="text" id="username" name="username" required><br><br>
+  <label class="input-label" for="username">Username:</label>
+  <input class="form-input" type="text" id="username" name="username" placeholder="Username" required>
 
-  <label for="email">Email:</label><br>
-  <input class="form-input" type="email" id="email" name="email" required><br><br>
+  <label class="input-label" for="email">Email:</label>
+  <input class="form-input" type="email" id="email" name="email" placeholder="Email" required>
 
-  <label for="password">Password:</label><br>
-  <input class="form-input" type="password" id="password" name="password" required><br><br>
+  <label class="input-label" for="password">Password:</label>
+  <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
   
-  <label for="password">Repeat password:</label><br>
-  <input class="form-input" type="password" id="password_confirmation" name="password_confirmation" required><br><br>
+  <label class="input-label" for="password_confirmation">Repeat password:</label>
+  <input class="form-input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" required>
 
-  <button class="submit-button" type="submit">Register</button>
-  <a href="<?php echo BASE_PATH; ?>login">Or Log in</a>
+  <button class="submit-button" type="submit">Sign up</button>
+    <div class="login-text">
+        <p class="login-link">Or</p>
+        <a class="login-link" href="<?php echo BASE_PATH; ?>login">Log in</a>
+    </div>
 
 </form>
 </body>
