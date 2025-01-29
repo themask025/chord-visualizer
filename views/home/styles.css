@@ -15,19 +15,41 @@ body {
 
 
 .landing-page-title-container * {
-    /* background-color: blue; */
-    /* width: 174px; */
     color: white;
 }
 
-.landing-page-title-image {
+.landing-page-title-logo {
+    color: #ffd900;
+}
+
+.title-image-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* .landing-page-title-image {
     margin: auto;
     width: 116;
     height: 58;
+} */
+
+.song-searchbar {
+    padding: 0.5em 1em 0.5em ;
+    margin: 2em 1.4em 1.2em 1.4em;
+    width: 400px;
+    height:50px;
+    border-radius: 1em;
+    font-size: 24px;
+
+    /* padding: 1em;
+    margin: 2em 1.4em 1.2em 1.4em;
+    width: 75%;
+    border-radius: 1em; */
 }
 
 .song-creation-label {
   color: white;
+  font-size: 24px;
 }
 
 .song-form-blur {
@@ -74,11 +96,15 @@ body {
   margin: 2em 1.4em 1.2em 1.4em;
   width: 75%;
   border-radius: 1em;
+  font-size: 24px;
 }
 
 .submit-button {
   margin: 1em;
+  padding: 1em;
   width: fit-content;
+  font-size: 24px;
+  border-radius: 1em;
 }
 
 .close-button {

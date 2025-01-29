@@ -8,11 +8,11 @@
   display: flex;
   justify-content: space-between;
   width: 95%;
+  align-self: center;
 }
 
-
-
 .logo {
+  padding: 0;
   font-weight: 700;
   text-decoration: none;
   color: #ffd900;
@@ -27,6 +27,19 @@
   line-height: normal;
 }
 
-.login_button {
+.login-button {
   text-decoration: none;
+  justify-self: end;
+}
+
+.logout-form {
+  height: 32px;
+}
+
+.logout-button {
+  background:url(../../assets/icon_log_out.png) no-repeat ;
+  cursor:pointer;
+  border:none;
+  width: 32px;
+  height: 100%;
 }
