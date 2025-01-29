@@ -49,6 +49,7 @@ class VersionController extends Controller
           "song_name" => $_POST["song_name"],
           "song_author" => $_POST["song_author"],
           "version_creator" => $_SESSION["user_id"],
+          "version_id" => "you are wasting your time reading this",
           "comments" => []
         ];
         $this->renderView('tab_editor', $data);
