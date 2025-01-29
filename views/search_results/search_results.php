@@ -9,11 +9,9 @@ if (isset($data)) {
     echo "<div class=\"results-list\">";
     foreach ($data["search_results"] as $search_result) {
         echo "<a class=\"results-item\" href=\"{$search_result["href"]}\">";
-        echo "<span class=\"results-item-span-main\">{$search_result["main"]}";
-        echo " ";
-        echo "<span class=\"results-item-span-sub\">{$search_result["sub"]}</span></span>";
-        echo " ";
+        echo "<span class=\"results-item-span-main\">{$search_result["main"]}</span>";
         echo "<span class=\"results-item-span-count\">{$search_result["count"]}</span>";
+        echo "<span class=\"results-item-span-sub\">{$search_result["sub"]}</span>";
         echo "</a>";
     }
     echo "</div>";
