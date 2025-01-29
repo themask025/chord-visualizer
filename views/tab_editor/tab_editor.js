@@ -32,27 +32,27 @@ const NOTE_LIST = get_note_list();
 const FRETBOARD_MAP = {
   e: NOTE_LIST.slice(NOTE_LIST.indexOf("E4")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
   B: NOTE_LIST.slice(NOTE_LIST.indexOf("B3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
   G: NOTE_LIST.slice(NOTE_LIST.indexOf("G3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
   D: NOTE_LIST.slice(NOTE_LIST.indexOf("D3")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
   A: NOTE_LIST.slice(NOTE_LIST.indexOf("A2")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
   E: NOTE_LIST.slice(NOTE_LIST.indexOf("E2")).slice(
     MIN_FRET,
-    MAX_FRET - MIN_FRET + 1,
+    MAX_FRET - MIN_FRET + 1
   ),
 };
 
@@ -304,6 +304,10 @@ const play_tabs = () => {
   for (let button of document.getElementsByTagName("button")) {
     button.disabled = true;
   }
+  for (let input of document.getElementsByTagName("input")) {
+    input.disabled = true;
+  }
+  document.getElementById("tabs-uploader-label").className = "disabled-label";
 
   for (let i = 0; i < note_sequence.length; ++i) {
     Tone.Draw.schedule(() => {
@@ -313,7 +317,7 @@ const play_tabs = () => {
     synth.triggerAttackRelease(
       get_notes_from_fretting(note_sequence[i]),
       "4n",
-      delay,
+      delay
     );
     delay += Tone.Time("4n");
   }
@@ -326,6 +330,10 @@ const play_tabs = () => {
     for (let button of document.getElementsByTagName("button")) {
       button.disabled = false;
     }
+    for (let input of document.getElementsByTagName("input")) {
+      input.disabled = false;
+    }
+    document.getElementById("tabs-uploader-label").className = "";
   }, delay);
 };
 
