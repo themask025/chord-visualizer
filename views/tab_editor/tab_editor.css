@@ -1,3 +1,21 @@
+body {
+  background: #121212;
+  color: white;
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 6em;
+  display: block !important;
+}
+
+.song-name,
+.song-author,
+.tabs-creator {
+  margin: auto;
+  margin-top: 0.5em;
+  width: fit-content;
+}
+
 .fretting-element {
   display: flex;
   flex-direction: column;
@@ -5,12 +23,45 @@
   margin-right: 1em;
 }
 
+.comment {
+  margin: 1em 0 1em 0;
+  background: #303030;
+  width: 300px;
+  height: auto;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border: 1px solid #8d8d8d;
+  border-radius: 1em;
+}
+
+.comment-author,
+.comment-timestamp,
+.comment-content {
+  width: 50%;
+}
+
+.comment-author,
+.comment-timestamp {
+  color: #a6a6a6;
+}
+
 .fretting-control {
+  z-index: 1;
   width: 2.9em;
   height: 2.9em;
   border-radius: 50%;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
+  border: 2px solid lightgray;
+  color: lightgray;
+  background: #121212;
+  cursor: pointer;
+}
+
+.fretting-control:enabled:hover {
+  filter: brightness(150%);
 }
 
 .bar {
@@ -24,20 +75,21 @@
 }
 
 hr {
-  z-index: -1;
   width: 100%;
   position: relative;
   top: -23.05em;
   margin-top: 3em;
+  border: 1px solid lightgray;
 }
 
 .string-name {
-  z-index: -1;
+  z-index: 0;
   width: 100%;
-  height: 1.6em;
+  height: 26.2px;
   position: relative;
-  top: -43.55em;
+  top: -43.4em;
   left: -1em;
+  color: #ffd900;
 }
 
 .remove-bar {
@@ -52,16 +104,16 @@ hr {
   color: white;
   font-weight: bold;
   font-size: 1.5em;
+  cursor: pointer;
 }
 
 .remove-bar:enabled:hover {
-  opacity: 0.8;
+  filter: brightness(150%);
 }
 
 .bpm-container {
   width: fit-content;
-  margin-inline: auto;
-  display: flex;
+  display: inline-flex;
   gap: 1em;
 }
 
@@ -70,32 +122,88 @@ p {
 }
 
 .active {
-  background-color: red;
+  background-color: darkgreen;
   border-radius: 1em;
+}
+
+#tab-related-buttons-footer {
+  position: fixed;
+  margin: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: #121212;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1em;
 }
 
 #add-bar-button,
 #play-tabs-button,
 #tabs-downloader,
-input[type="file"] {
-  margin-inline: auto;
+#tabs-uploader-label,
+#tabs-submit {
+  background-color: #d9d9d9;
+  color: black;
+  border-radius: 16px;
+  padding: 1em;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#tab-form {
+  display: inline;
+}
+
+#tabs-uploader {
+  display: none;
+}
+
+#tabs-uploader-label:enabled:hover {
+  filter: brightness(150%);
+}
+
+button:hover,
+input[type="submit"]:enabled:hover {
+  filter: brightness(150%);
+}
+
+button:disabled,
+input:disabled,
+.disabled-label {
+  filter: brightness(50%);
+  cursor: default !important;
 }
 
 #tabs-container {
   display: flex;
+  margin: auto;
+  margin-top: 2em;
   flex-direction: row;
   flex-wrap: wrap;
   width: 700px;
   padding: 2em;
-  margin-inline: auto;
-  border: 2px solid black;
+  border: 2px solid gray;
+  background-color: #121212;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 2em;
+#comments-section {
+  margin: auto;
+  margin-top: 4em;
+  width: fit-content;
+}
+
+#comment-text {
+  padding: 1em;
+  border-radius: 1em;
+  width: 300px;
+  font-size: 16px;
+}
+
+form {
+  width: fit-content;
 }
 
 .remove-bar:disabled {
@@ -106,8 +214,20 @@ body {
 .empty-fretting-insertor {
   position: relative;
   top: -80em;
-  left: -1.5em;
-  margin-left: 3.72em;
+  left: -2em;
+  margin-left: 4.3em;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: lightgreen;
+  font-weight: bold;
+}
+
+.empty-fretting-insertor:hover {
+  filter: brightness(150%);
 }
 
 .dont-display {
@@ -120,7 +240,16 @@ body {
 
 .fretting-deletor {
   position: relative;
-  top: -54em;
-  left: 1em;
+  top: -53em;
+  left: 0.9em;
+  cursor: pointer;
   margin-left: 3.72em;
+  background: none;
+  border: none;
+  color: red;
+  font-weight: bold;
+}
+
+.fretting-deletor:hover {
+  filter: brightness(150%);
 }
