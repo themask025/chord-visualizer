@@ -12,14 +12,12 @@
 </head>
 
 <body>
-
-  <?php
-    if($this->error != null)
-    {
-      echo "<h2 class=\"title\">" . $this->error . "</h2>";
-    }
-  ?>
   <form class="login-form" method="post">
+    <?php
+    if ($this->error != null) {
+      echo "<p class=\"error-message\">" . $this->error . "</p>";
+    }
+    ?>
     <label class="input-label" for="username">Username:</label>
     <input class="form-input" type="text" id="username" name="username" placeholder="Username" required>
 
@@ -28,8 +26,8 @@
 
     <button class="submit-button" type="submit">Login</button>
     <div class="register-text">
-        <p class="register-link">Or</p>
-        <a class="register-link" href="<?php echo BASE_PATH; ?>register">Sign up</a>
+      <p class="register-link">Or</p>
+      <a class="register-link" href="<?php echo BASE_PATH; ?>register">Sign up</a>
     </div>
   </form>
 </body>

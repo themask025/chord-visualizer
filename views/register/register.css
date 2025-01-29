@@ -1,80 +1,92 @@
 body {
-    background-color: #121212;
+  background-color: #121212;
+  margin-top: 8em;
+  font-family: sans-serif;
+}
+
+.error-message {
+  color: red;
+  width: fit-content;
+  margin: auto;
 }
 
 .title {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .register-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 36px;
-    font-weight: 50;
-    background-color: transparent;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    gap: 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 50;
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  gap: 32px;
 }
 
 .form-input {
-    padding: 1em;
-    height: 78px;
-    font: inherit;
-    line-height: 0.4;
-    width: 450px;
-    font-weight: 100;
-    margin: 0;
-    background-color: #D9D9D9;
-    border-radius: 24px;
-    box-sizing: border-box;
+  padding: 1em;
+  height: 78px;
+  font: inherit;
+  line-height: 0.4;
+  width: 450px;
+  font-weight: 100;
+  margin: 0;
+  background-color: #d9d9d9;
+  border-radius: 24px;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
 
 .submit-button {
-    font: inherit;
-    height: 78px;
-    font-weight: 100;
-    background-color: #D9D9D9;
-    color: #000000;
-    padding: 10px;
-    border: none;
-    border-radius: 24px;
-    width: 200px;
-    cursor: pointer;
+  font: inherit;
+  height: 78px;
+  font-weight: 100;
+  background-color: #d9d9d9;
+  color: #000000;
+  padding: 10px;
+  border: none;
+  border-radius: 24px;
+  width: 200px;
+  cursor: pointer;
 }
 
 .submit-button:hover {
-    filter: brightness(150%);
+  filter: brightness(150%);
 }
 
 .submit-button:hover {
-    filter: brightness(150%);
+  filter: brightness(150%);
 }
 
 .login-text {
-    text-align: center;
-    color: #D9D9D9;
-    display: flex;
-    justify-content: center;
-    align-content: baseline;
-    flex-direction: row;
-    gap: 5px
+  text-align: center;
+  color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-content: baseline;
+  flex-direction: row;
+  gap: 5px;
 }
-.login-link{
-    margin: 0;
-    font-weight: 100;
-    text-align: center;
-    color: #D9D9D9;
+.login-link {
+  margin: 0;
+  font-weight: 100;
+  text-align: center;
+  color: #d9d9d9;
 }
-.input-label{
-    display: none;
+.input-label {
+  display: none;
 }

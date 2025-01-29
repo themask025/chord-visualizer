@@ -1,8 +1,10 @@
 body {
   background-color: #121212;
-}
-.results-heading {
+  margin-top: 8em;
   font-family: sans-serif;
+}
+
+.results-heading {
   font-weight: 200;
   font-size: 36px;
   display: flex;
