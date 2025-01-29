@@ -6,12 +6,13 @@
   <title>Login Form</title>
   <?php
   require_once 'constants.php';
+  require_once(__DIR__ . "/../navigation_bar/index.php");
   echo '<link rel="stylesheet"' . ' href="' . BASE_PATH . 'views/login/login.css" />';
   ?>
 </head>
 
 <body>
-  <h1 class="title">Login</h1>
+
   <?php
     if($this->error != null)
     {
@@ -19,14 +20,17 @@
     }
   ?>
   <form class="login-form" method="post">
-    <label for="username">Username:</label>
-    <input class="form-input" type="text" id="username" name="username" required>
+    <label class="input-label" for="username">Username:</label>
+    <input class="form-input" type="text" id="username" name="username" placeholder="Username" required>
 
-    <label for="password">Password:</label>
-    <input class="form-input" type="password" id="password" name="password" required>
+    <label class="input-label" for="password">Password:</label>
+    <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
 
     <button class="submit-button" type="submit">Login</button>
-    <a href="<?php echo BASE_PATH; ?>register">Or Sign up</a>
+    <div class="register-text">
+        <p class="register-link">Or</p>
+        <a class="register-link" href="<?php echo BASE_PATH; ?>register">Sign up</a>
+    </div>
   </form>
 </body>
 
