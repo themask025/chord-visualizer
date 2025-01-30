@@ -2,16 +2,18 @@
 <html lang="en">
 
 <head>
+    <?php  require_once(__DIR__ . "/../navigation_bar/index.php");
+            require_once(__DIR__ . "/../../constants.php");
+    ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/tone"></script>
   <title>Tab editor</title>
-  <link rel="stylesheet" href="/chord-visualizer/views/tab_editor/tab_editor.css" />
+  <link rel="stylesheet" href=<?php echo '"'. BASE_PATH . '/views/tab_editor/tab_editor.css"'?> />
 </head>
 
 <body>
   <?php
-  require_once(__DIR__ . "/../navigation_bar/index.php");
 
   if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -20,12 +22,12 @@
     exit;
   }
   echo '<p id="json-data">' . json_encode($data) . '</p>';
-  $action = "/chord-visualizer/version/updateTab";
+  $action = BASE_PATH ."version/updateTab";
   $submit_name = "Update tab";
   $class_name = "";
   $logged_in = isset($_SESSION["user_id"]);
   if ($data["page_type"] === "song_creation") {
-    $action = "/chord-visualizer/version/createTab";
+    $action = BASE_PATH . "version/createTab";
     $submit_name = "Create tab";
   }
 
@@ -51,7 +53,7 @@
     <p><strong>Comments:</strong></p>
     <?php
     if ($logged_in && $data["page_type"] === "song_view") {
-      echo '<form id="comment-form" method="POST" action="/chord-visualizer/comment/addComment">';
+      echo '<form id="comment-form" method="POST" action= '. BASE_PATH . 'comment/addComment>';
       echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id\" name=\"version_id\" value=\"{$version_id}\" />";
       echo '<input type="submit" hidden />';
@@ -62,7 +64,7 @@
       echo "<div class=\"comment\">";
       echo "<div class=\"comment-author\">{$comment["username"]}</div>";
       echo "<div class=\"comment-timestamp\">{$comment["upload_timestamp"]}</div>";
-      echo "<form class=\"update-comment-form\" method=\"POST\" action=\"/chord-visualizer/comment/updateComment\">";
+      echo '<form class="update-comment-form" method="POST" action= "' . BASE_PATH .'comment/updateComment\">';
       echo "<input class=\"comment-text\" type=\"text\" id=\"comment-text-" . $comment["id"] . "\" placeholder=\"Update your comment\" name=\"comment_text\"" . (!isset($_SESSION["user_id"]) || $comment["author_id"] != $_SESSION["user_id"] ? " disabled" : "") . " value=\"{$comment["content"]}\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-id-" . $comment["id"] . "\" name=\"comment_id\" value=\"{$comment["id"]}\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id-" . $comment["id"] . "\" name=\"version_id\" value=\"{$version_id}\" />";
@@ -104,7 +106,7 @@
     echo "</form>";
     ?>
   </div>
-  <script src="/chord-visualizer/views/tab_editor/tab_editor.js">
+  <script src= <?php echo '"'.BASE_PATH . '/views/tab_editor/tab_editor.js"'  ?>>
   </script>
 </body>
 

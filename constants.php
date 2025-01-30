@@ -1,5 +1,6 @@
 <?php
 const BASE_PATH = "/chord-visualizer/";
+/* BASE_PATH must begin with / and end with / */
    /* define("CONNECTION_STRING","localhost");*/
 
 const DB_HOST = "localhost";

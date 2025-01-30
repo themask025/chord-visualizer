@@ -1,6 +1,7 @@
 <?php
 
-require_once "controller.php";
+require_once (__DIR__ . '/../constants.php');
+require_once (__DIR__ . '/controller.php');
 class SongController extends Controller
 {
     private $song_model;
@@ -27,7 +28,7 @@ class SongController extends Controller
                 } else {
                   $version_count = "{$version_count} versions";
                 }
-                $search_results[$key]["href"] = "/chord-visualizer/version/searchSongVersions?song_id={$song["id"]}";
+                $search_results[$key]["href"] = BASE_PATH."version/searchSongVersions?song_id={$song["id"]}";
                 $search_results[$key]["main"] = $song["title"];
                 $search_results[$key]["sub"] = $song["performer"];
                 $search_results[$key]["count"] = $version_count;
@@ -38,7 +39,7 @@ class SongController extends Controller
     }
     public function index()
     {
-      header("Location: /chord-visualizer/");
+      header("Location: ". BASE_PATH);
     }
 
 }

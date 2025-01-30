@@ -1,7 +1,7 @@
 <?php
 
-require_once 'controller.php';
-
+require_once (__DIR__ . '/../constants.php');
+require_once (__DIR__ . '/controller.php');
 class RegisterController extends Controller
 {
     public $error;

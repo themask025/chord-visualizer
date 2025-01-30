@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Registration Form</title>
   <?php
-  require_once 'constants.php';
+  require_once( __DIR__ . '/../../constants.php');
   require_once(__DIR__ . "/../navigation_bar/index.php");
   echo '<link rel="stylesheet"' . ' href="' . BASE_PATH . 'views/register/register.css" />';
   ?>

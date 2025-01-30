@@ -1,4 +1,5 @@
 <?php
+require_once (__DIR__ . '/../../constants.php');
 require_once(__DIR__ . "/../navigation_bar/index.php");
 
 if (isset($data)) {
@@ -7,7 +8,7 @@ if (isset($data)) {
 
     echo "<div class=\"results-list\">";
     foreach ($data["versions"] as $i => $version) {
-        echo "<a class=\"results-item\" href=\"/chord-visualizer/version/tabEditor?version_id={$version["id"]}\">";
+        echo '<a class="results-item" href="'. BASE_PATH. 'version/tabEditor?version_id='.$version["id"].'">';
         echo "<span class=\"results-item-span-top-left\">Version {$i}</span>";
         echo " ";
         echo "<span class=\"results-item-span-bottom-left\">By {$version["username"]}</span>";
