@@ -26,7 +26,7 @@ class Router
         }
         else {
                     $controller_name = ucfirst($route_arr[0]) . 'Controller';
-                    $controller_file = __DIR__ . '\controllers\\' . strtolower($route_arr[0]) . '_controller.php';
+                    $controller_file = __DIR__ . '/controllers/' . strtolower($route_arr[0]) . '_controller.php';
                     if (file_exists($controller_file)) {
                         require_once $controller_file;
 
