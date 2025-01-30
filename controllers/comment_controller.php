@@ -1,15 +1,14 @@
 <?php
 
-require_once 'controller.php';
+require_once (__DIR__ . "/../constants.php");
+require_once (__DIR__ . '/controller.php');
 class CommentController extends Controller
 {
     private $comment_model;
-    private $user_model;
 
     public function __construct()
     {
         $this->comment_model = $this->loadModel('Comment');
-        $this->user_model = $this->loadModel('User');
     }
 
     private function checkUser()
@@ -19,7 +18,7 @@ class CommentController extends Controller
         }
 
         if (!isset($_SESSION["user_id"])) {
-            header("Location: /chord-visualizer/");
+            header("Location: ". BASE_PATH);
             exit;
         }
     }
@@ -34,7 +33,7 @@ class CommentController extends Controller
             $timestamp = date('Y-m-d H:i:s');
             $this->comment_model->storeComment($version_id, $user_id, $timestamp, $comment_text);
 
-            header("Location: /chord-visualizer/version/tabEditor?version_id={$version_id}");
+            header("Location: ". BASE_PATH. "version/tabEditor?version_id={$version_id}");
         }
     }
 
@@ -50,7 +49,7 @@ class CommentController extends Controller
             $timestamp = date('Y-m-d H:i:s');
             $this->comment_model->updateComment($comment_id, $user_id, $timestamp, $comment_text);
 
-            header("Location: /chord-visualizer/version/tabEditor?version_id={$version_id}");
+            header("Location: " .BASE_PATH. "version/tabEditor?version_id={$version_id}");
         }
     }
 }

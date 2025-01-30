@@ -1,6 +1,7 @@
 <?php
 
-require_once 'controller.php';
+require_once (__DIR__ . '/../constants.php');
+require_once (__DIR__ . '/controller.php');
 
 class LoginController extends Controller
 {
@@ -58,9 +59,9 @@ class LoginController extends Controller
 
                 $sender = $_POST["sender"];
 
-                if($sender == "/chord-visualizer/version/initTab")
+                if($sender ==  BASE_PATH . "version/initTab")
                 {
-                    header("Location: /chord-visualizer/");
+                    header("Location: ". BASE_PATH);
                     exit;
                 }
                 
@@ -68,7 +69,7 @@ class LoginController extends Controller
                 exit;
             }
         }
-        header("Location: /chord-visualizer/");
+        header("Location: ".BASE_PATH);
         exit;
     }
 }

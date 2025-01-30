@@ -11,7 +11,7 @@ require_once(__DIR__ . "/../../constants.php");
 </head>
 
 <nav class="navbar">
-    <a href="/chord-visualizer/" class="logo">CHORD VISUALIZER</a>
+    <a href="<?php echo BASE_PATH; ?>" class="logo">CHORD VISUALIZER</a>
 
     <?php
     if (session_status() === PHP_SESSION_NONE) {
@@ -28,7 +28,7 @@ require_once(__DIR__ . "/../../constants.php");
         <?php
     } else if (!isset($data["auth_page"]) || $data["auth_page"] != true) {
         ?>
-            <a href="/chord-visualizer/login" class="login-button"><img src="<?php echo BASE_PATH; ?>assets/icon_log_in.png"
+            <a href="<?php echo BASE_PATH; ?>login" class="login-button"><img src="<?php echo BASE_PATH; ?>assets/icon_log_in.png"
                     alt="Log in icon"></a>
         <?php
     }

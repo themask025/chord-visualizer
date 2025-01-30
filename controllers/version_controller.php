@@ -1,6 +1,7 @@
 <?php
 
-require_once 'controller.php';
+require_once (__DIR__ . '/../constants.php');
+require_once (__DIR__ . '/controller.php');
 class VersionController extends Controller
 {
   private $version_model;
@@ -28,7 +29,7 @@ class VersionController extends Controller
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
       $this->version_model->updateVersion($_POST["version_id"], "TAB", $_POST["version_data"]);
-      header("Location: /chord-visualizer/version/tabEditor?version_id={$_POST["version_id"]}");
+      header("Location: ". BASE_PATH ."version/tabEditor?version_id={$_POST["version_id"]}");
     }
   }
 
@@ -38,7 +39,7 @@ class VersionController extends Controller
     {
       session_start();
       if (!isset($_SESSION["user_id"])) {
-        header("Location: /chord-visualizer/");
+        header("Location: ". BASE_PATH);
         exit;
       }
 
@@ -63,7 +64,7 @@ class VersionController extends Controller
     {
       session_start();
       if (!isset($_SESSION["user_id"])) {
-        header("Location: /chord-visualizer/");
+        header("Location: ".BASE_PATH);
         exit;
       }
       $song = $this->song_model->getSongByNamePerformer($_POST["song_name"],$_POST["song_author"]);
@@ -74,7 +75,7 @@ class VersionController extends Controller
       }
 
       $version_id = $this->version_model->createVersion($_SESSION["user_id"],$song["id"],"TAB",$_POST["version_data"]);
-      header("Location: /chord-visualizer/version/tabEditor?version_id={$version_id}");
+      header("Location:" . BASE_PATH ."version/tabEditor?version_id={$version_id}");
     }
   }
 
@@ -84,14 +85,14 @@ class VersionController extends Controller
     if($_SERVER['REQUEST_METHOD'] === 'GET')
     {
       if (!isset($_GET["version_id"])) {
-        header("Location: /chord-visualizer/");
+          header("Location: " . BASE_PATH);
         exit;
       }
 
       $version = $this->version_model->getVersionById($_GET["version_id"]);
       if($version == null)
       {
-        header("Location: /chord-visualizer/");
+        header("Location: " . BASE_PATH);
         exit;
       }
 
@@ -135,7 +136,7 @@ class VersionController extends Controller
       foreach ($versions as $key => $version)
       {
         $versions[$key]["comments_count"] = count($this->comment_model->getComments($version["id"]));
-        $search_results[$key]["href"] = "/chord-visualizer/version/tabEditor?version_id={$version["id"]}";
+        $search_results[$key]["href"] = BASE_PATH . "version/tabEditor?version_id={$version["id"]}";
         $search_results[$key]["main"] = "Version {$key}";
         $search_results[$key]["sub"] = $versions[$key]["version_author"];
         $search_results[$key]["count"] = "{$versions[$key]["comments_count"]} comments";

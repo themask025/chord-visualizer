@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . "/../navigation_bar/index.php");
-require_once 'constants.php';
+require_once (__DIR__ . "/../../constants.php");
 echo '<link rel="stylesheet"' . ' href="' . BASE_PATH . 'views/search_results/search_results.css" />';
 if (isset($data)) {
     echo "<h2 class=\"results-heading\">{$data["search_query"]}</h2>";

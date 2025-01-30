@@ -24,7 +24,7 @@ require_once(__DIR__ . "/../../constants.php");
         }
     </script>
     <?php
-    require_once(__DIR__ . "/../navigation_bar/index.php");
+        require_once(__DIR__ . "/../navigation_bar/index.php");
     ?>
 
     <div class="main-container">
@@ -43,7 +43,7 @@ require_once(__DIR__ . "/../../constants.php");
             </div>
         </div>
 
-        <form class="song-search" action="/chord-visualizer/song/findSong" method="GET">
+        <form class="song-search" action= <?php echo BASE_PATH ."song/findSong" ?> method="GET">
             <input type="text" name="song_name" class="song-searchbar" placeholder="Search for a song">
             <input type="submit" hidden>
         </form>
@@ -54,7 +54,7 @@ require_once(__DIR__ . "/../../constants.php");
             echo '</div>';
             echo '<div class="song-form-blur" hidden>';
             echo '<div class="song-form-background" hidden>';
-            echo '<form class="song-form" action="/chord-visualizer/version/initTab" method="post" hidden>';
+            echo '<form class="song-form" action="'. BASE_PATH. 'version/initTab" method="post" hidden>';
             echo '<button class="close-button" onclick="set_form_hidden(true)">X</button>';
             echo '<input class="form-input" type="text" placeholder="Enter song name" id="song_name" name="song_name" required>';
             echo '<input class="form-input" type="text" placeholder="Enter song author" id="song_author" name="song_author" required>';
