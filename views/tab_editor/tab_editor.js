@@ -351,8 +351,13 @@ const play_tabs = () => {
     for (let button of document.getElementsByTagName("button")) {
       button.disabled = false;
     }
+
     for (let input of document.getElementsByTagName("input")) {
       input.disabled = false;
+    }
+
+    for (let button of document.getElementsByClassName("fretting-control")) {
+      button.disabled = !can_edit;
     }
 
     document
