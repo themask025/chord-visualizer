@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <?php  require_once(__DIR__ . "/../navigation_bar/index.php");
-            require_once(__DIR__ . "/../../constants.php");
-    ?>
+  <?php require_once(__DIR__ . "/../navigation_bar/index.php");
+  require_once(__DIR__ . "/../../constants.php");
+  ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/tone"></script>
   <title>Tab editor</title>
-  <link rel="stylesheet" href=<?php echo '"'. BASE_PATH . '/views/tab_editor/tab_editor.css"'?> />
-</head>
+  <link rel="stylesheet" href=<?php echo '"' . BASE_PATH . '/views/tab_editor/tab_editor.css"' ?> />
+
 
 <body>
   <?php
@@ -22,7 +22,7 @@
     exit;
   }
   echo '<p id="json-data">' . json_encode($data) . '</p>';
-  $action = BASE_PATH ."version/updateTab";
+  $action = BASE_PATH . "version/updateTab";
   $submit_name = "Update tab";
   $class_name = "";
   $logged_in = isset($_SESSION["user_id"]);
@@ -53,7 +53,7 @@
     <p><strong>Comments:</strong></p>
     <?php
     if ($logged_in && $data["page_type"] === "song_view") {
-      echo '<form id="comment-form" method="POST" action= '. BASE_PATH . 'comment/addComment>';
+      echo '<form id="comment-form" method="POST" action= ' . BASE_PATH . 'comment/addComment>';
       echo "<input type=\"text\" id=\"comment-text\" placeholder=\"Comment on this song\" name=\"comment_text\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id\" name=\"version_id\" value=\"{$version_id}\" />";
       echo '<input type="submit" hidden />';
@@ -64,7 +64,7 @@
       echo "<div class=\"comment\">";
       echo "<div class=\"comment-author\">{$comment["username"]}</div>";
       echo "<div class=\"comment-timestamp\">{$comment["upload_timestamp"]}</div>";
-      echo '<form class="update-comment-form" method="POST" action= "' . BASE_PATH .'comment/updateComment\">';
+      echo '<form class="update-comment-form" method="POST" action= "' . BASE_PATH . 'comment/updateComment\">';
       echo "<input class=\"comment-text\" type=\"text\" id=\"comment-text-" . $comment["id"] . "\" placeholder=\"Update your comment\" name=\"comment_text\"" . (!isset($_SESSION["user_id"]) || $comment["author_id"] != $_SESSION["user_id"] ? " disabled" : "") . " value=\"{$comment["content"]}\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-id-" . $comment["id"] . "\" name=\"comment_id\" value=\"{$comment["id"]}\" />";
       echo "<input class=\"display-none\" type=\"text\" id=\"comment-version-id-" . $comment["id"] . "\" name=\"version_id\" value=\"{$version_id}\" />";
@@ -77,6 +77,38 @@
       echo "<p>No comments here</p>";
     }
     ?>
+  </div>
+  <div id="tab-styler">
+    <strong>Tab styler:</strong>
+    <br>
+    <input type="text" id="fretting-control-styler" placeholder="Fret number circle style">
+    <button onclick="set_fretting_control_styles_from_input()" id="fretting-control-style-button">Update styles</button>
+    <br>
+    Set border radius:
+    <input id="border-radius-slider" type="range" min="0" max="50" value="50" onchange="set_border_radius(event)" />
+    <br>
+    String:
+    <select id="string-pick">
+      <option value="e">e</option>
+      <option value="B">B</option>
+      <option value="G">G</option>
+      <option value="D">D</option>
+      <option value="A">A</option>
+      <option value="E">E</option>
+    </select>
+    Color:
+    <button id="yellow-string-color" onclick="set_string_color('yellow')">&nbsp;</button>
+    <button id="blue-string-color" onclick="set_string_color('blue')">&nbsp;</button>
+    <button id="red-string-color" onclick="set_string_color('red')">&nbsp;</button>
+    <br>
+    Fret number circle border color:
+    <button id="yellow-border-color" onclick="set_border_color('yellow')">&nbsp;</button>
+    <button id="blue-border-color" onclick="set_border_color('blue')">&nbsp;</button>
+    <button id="red-border-color" onclick="set_border_color('red')">&nbsp;</button>
+    <br>
+    <button id="dalmatian-theme" onclick="set_random_dalmatian_theme()">Random dalmatian theme</button>
+    <br>
+    <input type="file" accept="image/png, image/jpeg" id="background-uploader" onchange="update_background()" />
   </div>
   <div id="tab-related-buttons-footer">
     <div class="bpm-container">
@@ -106,7 +138,7 @@
     echo "</form>";
     ?>
   </div>
-  <script src= <?php echo '"'.BASE_PATH . '/views/tab_editor/tab_editor.js"'  ?>>
+  <script src=<?php echo '"' . BASE_PATH . '/views/tab_editor/tab_editor.js"' ?>>
   </script>
 </body>
 

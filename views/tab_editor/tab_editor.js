@@ -70,6 +70,12 @@ const version_id_form_element = document.getElementById("version-id");
 const version_data_form_element = document.getElementById("version-data");
 const song_name_form_element = document.getElementById("song-name");
 const song_author_form_element = document.getElementById("song-author");
+const background_uploader_element = document.getElementById(
+  "background-uploader"
+);
+const fretting_control_styler_element = document.getElementById(
+  "fretting-control-styler"
+);
 
 // ACTUAL CODE
 let bpm;
@@ -159,9 +165,9 @@ const create_fretting_element = (fretting, index) => {
     if (fretting[string] != undefined)
       string_fretting_control_element.textContent = fretting[string];
 
-    string_fretting_control_element.onclick = () => {
-      if (!can_edit) return;
+    string_fretting_control_element.disabled = !can_edit;
 
+    string_fretting_control_element.onclick = () => {
       const new_fret = prompt("Choose new fret number:");
 
       if (
@@ -203,8 +209,10 @@ const create_bar_element = (bar_index) => {
     bar_element.appendChild(create_fretting_element(fretting, fretting_index));
   }
 
-  for (let i = 0; i < 6; ++i) {
-    bar_element.appendChild(document.createElement("hr"));
+  for (let string of GUITAR_STRING_NAMES) {
+    const string_element = document.createElement("hr");
+    string_element.className = `${string}-string`;
+    bar_element.appendChild(string_element);
   }
 
   for (let string of GUITAR_STRING_NAMES) {
@@ -280,13 +288,13 @@ const get_notes_from_fretting = (fretting) => {
 
 const scrollIntoViewWithOffset = (element, offset) => {
   window.scrollTo({
-    behavior: 'smooth',
+    behavior: "smooth",
     top:
       element.getBoundingClientRect().top -
       document.body.getBoundingClientRect().top -
       offset,
-  })
-}
+  });
+};
 
 const style_current_notes = (quarter_note_index) => {
   if (quarter_note_index > 0) {
@@ -353,12 +361,87 @@ const play_tabs = () => {
   }, delay);
 };
 
+const update_fretting_control_styles = (style_string) => {
+  Array.from(document.getElementsByClassName("fretting-control")).forEach(
+    (fretting_control_element) => {
+      const properties = style_string
+        .split(";")
+        .filter((str) => str.trim() != "")
+        .map((prop) => prop.split(":"))
+        .map((prop) => [prop[0].trim(), prop[1].trim()]);
+
+      properties.forEach((prop) => {
+        const [key, value] = prop;
+
+        fretting_control_element.style.setProperty(key, value);
+      });
+    }
+  );
+};
+
+const set_fretting_control_styles_from_input = () => {
+  update_fretting_control_styles(fretting_control_styler_element.value);
+};
+
+const set_border_radius = (e) => {
+  update_fretting_control_styles(`border-radius:${e.target.value}%`);
+};
+
+const set_string_color = (color) => {
+  const string_pick_element = document.getElementById("string-pick");
+  const string_elements = document.getElementsByClassName(
+    `${string_pick_element.value}-string`
+  );
+  Array.from(string_elements).forEach((string_element) => {
+    string_element.style.setProperty("border-color", color);
+  });
+};
+
+const set_border_color = (color) => {
+  Array.from(document.getElementsByClassName("fretting-control")).forEach(
+    (fretting_control_element) => {
+      fretting_control_element.style.setProperty("border-color", color);
+    }
+  );
+};
+
+const set_random_dalmatian_theme = () => {
+  Array.from(document.getElementsByClassName("fretting-control")).forEach(
+    (fretting_control_element) => {
+      if (Math.random() < 0.5) {
+        fretting_control_element.style.setProperty("background", "white");
+        fretting_control_element.style.setProperty("border-color", "black");
+        fretting_control_element.style.setProperty("color", "black");
+      } else {
+        fretting_control_element.style.setProperty("background", "black");
+        fretting_control_element.style.setProperty("border-color", "white");
+        fretting_control_element.style.setProperty("color", "white");
+      }
+    }
+  );
+};
+
+const update_background = () => {
+  const file = background_uploader_element.files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener(
+    "load",
+    () => {
+      tabs_container.style.background = `url(${reader.result})`;
+    },
+    false
+  );
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+};
+
 if (json_data_element != null) {
   const json_data = JSON.parse(json_data_element.textContent);
-  console.log(json_data);
 
   can_edit = json_data.can_edit;
-  // can_edit = true;
   song_name_form_element.value = json_data.song_name;
   song_author_form_element.value = json_data.song_author;
   version_id_form_element.value = json_data.version_id;

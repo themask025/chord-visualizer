@@ -66,6 +66,10 @@ body {
   cursor: pointer;
 }
 
+.fretting-control:disabled {
+  filter: none !important;
+}
+
 .fretting-control:enabled:hover {
   filter: brightness(150%);
 }
@@ -277,4 +281,55 @@ form {
 
 .fretting-deletor:hover {
   filter: brightness(150%);
+}
+
+#tab-styler {
+  width: fit-content;
+  position: fixed;
+  left: 0;
+  top: 50%;
+  background: #121212;
+  border: 1px solid #303030;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+#fretting-control-style-button,
+#dalmatian-theme {
+  border-radius: 1em;
+  padding: 1em;
+}
+
+#fretting-control-styler {
+  padding: 1em;
+  font-weight: 300;
+  border-radius: 1em;
+  border: none;
+}
+
+#yellow-string-color,
+#blue-string-color,
+#red-string-color,
+#yellow-border-color,
+#blue-border-color,
+#red-border-color {
+  border: 1px solid white;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+#yellow-string-color,
+#yellow-border-color {
+  background: yellow;
+}
+
+#blue-string-color,
+#blue-border-color {
+  background: blue;
+}
+
+#red-string-color,
+#red-border-color {
+  background: red;
 }
